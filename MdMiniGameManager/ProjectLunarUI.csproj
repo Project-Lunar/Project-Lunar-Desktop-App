@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A86BDA61-CD62-480B-8510-DE28573C2277}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ProjectLunarUI</RootNamespace>
+    <AssemblyName>ProjectLunarUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>false</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>3B6830926750B03DC9E286E977E4B8C52EC3B33E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ProjectLunarUI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Crc32.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\Crc32.NET.1.2.0\lib\net20\Crc32.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkUI">
+      <HintPath>Resources\DarkUI.dll</HintPath>
+    </Reference>
+    <Reference Include="FelLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\FelLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zstandard.Net.1.1.7\lib\net45\Zstandard.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\SwingMessageBox.cs" />
+    <Compile Include="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddGame.Designer.cs">
+      <DependentUpon>frmAddGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmInstallRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInstallRestore.Designer.cs">
+      <DependentUpon>frmInstallRestore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoading.Designer.cs">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmManageMods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmManageMods.Designer.cs">
+      <DependentUpon>frmManageMods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMsgDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMsgDialog.Designer.cs">
+      <DependentUpon>frmMsgDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTutorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTutorial.Designer.cs">
+      <DependentUpon>frmTutorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="m2engage\Alldata.cs" />
+    <Compile Include="m2engage\M2engage.cs" />
+    <Compile Include="MArchive\AllDataPacker.cs" />
+    <Compile Include="MArchive\IMArchiveCodec.cs" />
+    <Compile Include="MArchive\MArchiveCryptoStream.cs" />
+    <Compile Include="MArchive\MArchivePacker.cs" />
+    <Compile Include="MArchive\mt19937ar.cs" />
+    <Compile Include="MArchive\Utils.cs" />
+    <Compile Include="MArchive\ZlibCodec.cs" />
+    <Compile Include="MArchive\ZStandardCodec.cs" />
+    <Compile Include="Models\ArchiveV1.cs" />
+    <Compile Include="frmGameManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGameManager.Designer.cs">
+      <DependentUpon>frmGameManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scraper\Interfaces\IScraper.cs" />
+    <Compile Include="Scraper\ScraperData.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Psb\Analysis.cs" />
+    <Compile Include="Psb\CliStreamSource.cs" />
+    <Compile Include="Psb\EmoteCryptFilter.cs" />
+    <Compile Include="Psb\IPsbFilter.cs" />
+    <Compile Include="Psb\IPsbStreamSource.cs" />
+    <Compile Include="Psb\JStream.cs" />
+    <Compile Include="Psb\OverlayReadStream.cs" />
+    <Compile Include="Psb\PsbFlags.cs" />
+    <Compile Include="Psb\PsbReader.cs" />
+    <Compile Include="Psb\PsbTokenType.cs" />
+    <Compile Include="Psb\PsbWriter.cs" />
+    <Compile Include="Psb\RangeUsageAnalyzer.cs" />
+    <Compile Include="Psb\Writing\IKeyNamesEncoder.cs" />
+    <Compile Include="Psb\Writing\KeyNamesGenerator.cs" />
+    <Compile Include="Psb\Writing\NameNode.cs" />
+    <Compile Include="Psb\Writing\RegularNameNode.cs" />
+    <Compile Include="Psb\Writing\StandardKeyNamesEncoder.cs" />
+    <Compile Include="Psb\Writing\TerminalNameNode.cs" />
+    <Compile Include="Psb\XorShift128.cs" />
+    <Compile Include="Scraper\ScreenScraper.cs" />
+    <Compile Include="Scraper\TheGamesDB.cs" />
+    <Content Include="lunar_data\driver\classic_driver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\config\mode_staff_text_jp.psb.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\config\mode_staff_text_as.psb.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\config\mode_staff_text_eu.psb.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Alien Soldier %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Brian Lara Cricket %28Australia%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Brian Lara Cricket %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Brian Lara Cricket 96 %28E%29 [a1][x].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Brian Lara Cricket 96 %28Europe%29 %28v1.1%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Brian Lara Cricket 96 %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\College Football USA 97 %28USA%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\FIFA Soccer 97 %28USA, Europe%29 %28En,Fr,De,Es,It,Sv%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\John Madden Football %2793 %28USA, Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\John Madden Football %2793 - Championship Edition %28U%29 [b1+C].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\John Madden Football - Championship Edition %28USA%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Madden NFL 98 %28USA%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines 2 - Turbo Tournament %28Europe%29 %28J-Cart%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines 2 - Turbo Tournament %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines Military %28Europe%29 %28J-Cart%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines Military - It%27s a Blast! %28E%29 [h1C].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines Turbo Tournament 96 %28Europe%29 %28J-Cart%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Micro Machines Turbo Tournament 96 %28Europe%29 %28v1.1%29 %28J-Cart%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\NHLPA Hockey 93 %28USA, Europe%29 %28Rev A%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Paperboy 2 %28USA, Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pete Sampras Tennis %28USA, Europe%29 %28v1.0%29 %28J-Cart%29 %28MDST17FF%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pete Sampras Tennis %28USA, Europe%29 %28v1.0%29 %28J-Cart%29 %28MDST6636%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pete Sampras Tennis %28USA, Europe%29 %28v1.1%29 %28J-Cart%29 %28MDST17FF%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pete Sampras Tennis %28USA, Europe%29 %28v1.1%29 %28J-Cart%29 %28MDST6636%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pete Sampras Tennis %28USA, Europe%29 %28v1.2%29 %28J-Cart%29 %28MDSTEE13%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\PGA Tour Golf %28USA, Europe%29 %28Rev B%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Pro Yakyuu Super League %2791 %28Japan%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Rings of Power %28USA, Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Shane Warne Cricket %28Australia%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Sonic &amp; Knuckles + Sonic The Hedgehog 2 %28World%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Sonic &amp; Knuckles + Sonic The Hedgehog 3 %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Sonic &amp; Knuckles + Sonic The Hedgehog 3 %28Japan%29 %28En%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Sonic &amp; Knuckles + Sonic The Hedgehog 3 %28USA%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Total Football %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\IPS\Winter Challenge %28USA, Europe%29 %28v1.1%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\creds3.png" />
+    <None Include="Resources\creds2.png" />
+    <None Include="Resources\creds.png" />
+    <None Include="Resources\opaccube.png" />
+    <None Include="Resources\icn_ok.png" />
+    <None Include="Resources\icn_question.png" />
+    <None Include="Resources\mmc_white.png" />
+    <None Include="Resources\mmc_black.png" />
+    <None Include="Misc\ProjectLunar.bex" />
+    <None Include="Resources\ProjectLunar_tut5.png" />
+    <None Include="Resources\ProjectLunar_tut4.png" />
+    <None Include="Resources\ProjectLunar_tut3.png" />
+    <None Include="Resources\ProjectLunar_tut2.png" />
+    <None Include="Resources\ProjectLunar_tut1.png" />
+    <None Include="Resources\icn_info.png" />
+    <None Include="Resources\icn_wizard.png" />
+    <None Include="Resources\icn_warn.png" />
+    <None Include="Resources\icn_upload.png" />
+    <None Include="Resources\icn_stop.png" />
+    <None Include="Resources\icn_sdcard.png" />
+    <None Include="Resources\icn_option.png" />
+    <None Include="Resources\icn_nuke.png" />
+    <None Include="Resources\icn_noaccess.png" />
+    <None Include="Resources\icn_megaphone.png" />
+    <None Include="Resources\icn_fire.png" />
+    <None Include="Resources\icn_electron.png" />
+    <None Include="Resources\icn_elec.png" />
+    <None Include="Resources\icn_download.png" />
+    <None Include="Resources\icn_construction.png" />
+    <None Include="Resources\icn_chat.png" />
+    <None Include="Resources\LunarLoad50pecentSize.gif" />
+    <None Include="Resources\AutoBoot_Screen.png" />
+    <None Include="Resources\back720.png" />
+    <None Include="Resources\BootMenu_RA.png" />
+    <None Include="ProjectLunarUI_TemporaryKey.pfx" />
+    <None Include="Resources\env_initrd.img" />
+    <None Include="Resources\fes1.bin" />
+    <None Include="Resources\ProjectLunar.bin" />
+    <None Include="Resources\spine_MMC_US.png" />
+    <None Include="Resources\spine_MMC_JP.png" />
+    <None Include="Resources\spine_MMC_EU.png" />
+    <None Include="Resources\cover_MMC_EU.png" />
+    <None Include="Resources\cover_MMC_JP.png" />
+    <None Include="Resources\cover_MMC_US.png" />
+    <None Include="Resources\FelLib.dll" />
+    <None Include="Resources\LibUsbDotNet.LibUsbDotNet.dll" />
+    <None Include="Resources\PL_fullColour_Large2.png" />
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddGame.resx">
+      <DependentUpon>frmAddGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGameManager.resx">
+      <DependentUpon>frmGameManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInstallRestore.resx">
+      <DependentUpon>frmInstallRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoading.resx">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmManageMods.resx">
+      <DependentUpon>frmManageMods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMsgDialog.resx">
+      <DependentUpon>frmMsgDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTutorial.resx">
+      <DependentUpon>frmTutorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Icon.ico" />
+    <Content Include="lunar_data\system\config\mode_staff_text_us.psb.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_0">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_10">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_11">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_5">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_6">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_7">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_9">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\ss.bin" />
+    <None Include="Resources\tgdb.bin" />
+    <None Include="Resources\u-boot-sun8iw5p1-memboot.bin" />
+    <None Include="Resources\uImage" />
+    <None Include="Resources\uInitrd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\script_mode_title_select.nut" />
+    <None Include="Resources\spineTemplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JPspine_Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EUspine_Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EUspine2_Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spineTemplateClassic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets" Condition="Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>

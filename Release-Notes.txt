@@ -1,0 +1,253 @@
+Changelog
+
+2019-12-29
+-Fixed an issue that would allow an extracted ROM to remail in the local directory if a game being added got cancelled
+-Added general exception handling to thread exceptions
+-Updated thread management to prevent starting a thread multiple times
+
+2019-12-28 - 1.0.43
+-Fixed a bug that would cause a crash if attempting to add a game after a space full message is shown
+-Fixed an issue that would not show the exact free space after exceeding it once
+-Added a safety check to prevent games being added beyond the stock UI capacity
+-Added ability to start recovery mode from the main form (ctrl+click install)
+-Added Hakchi detection
+-Added F4 to open local folder on main form
+-Cleaned up unused SCP client on mod manager
+
+2019-12-27 - 1.0 Release
+-Added get IPS folder shortcut to the Tools menu
+-Fixed unzip routine to look for a ROM to extract.
+-Added general exception wrapper and logging
+-Switched the gameversions ROM code to a deterministic value, instead of random
+-Added checkbox that will be enabled when an IPS patch is detected and also controls if a detected patch is applied or not
+-Updated the version string. Included all IPS patches in the build
+-Added a protection over maximum progress bar for install/uninstall/failsafe/recovery
+-Added AyanamiRei0 to the tester credits
+
+2019-12-26
+-Added single-instance check. If the application is already running it'll be brought to foreground.
+-Fixed a bug with the IPS patcher when the data chunk is RLE
+-Added Get IPS Patches menu (Tools)
+
+2019-12-24
+-Multi-region game management implemented.
+-Smoothing menu checkbox glitch fixed
+-Fixed an bug that broke the IPS patch function
+
+2019-12-23
+- Added a please backup message to the initial install gamemanager screen
+- Added zipped rom addition support
+- Added bulk addition of roms support
+- Added drag n drop support (multi file allowed) to the game manager.
+- Fixed spamming add game button bug
+-Fixed a bug initializing the game manager with a console that already has PL
+
+2019-12-22
+-Disbled file deletion before upload to attempt preventing the whiteout issue.
+-Fixed a bug that caused empty slots on the japanese interface for Japanese units
+
+2019-12-21
+-Added IPS Patcher
+-Fixed a silly mistake that would make it prompt for sync every time the game manager opens
+
+2019-12-20
+-Fixed a bug that caused some roms not to be deleted (thanks CompCom)
+-Made a change to the upload process to prevent not having space to upload
+-Added initial sync dialog box to allow more accurate free space to be obtained
+-Fixed a bug that would cause PL to fail installation if some files were present in the backup directory
+
+2019-12-19
+-Fixed a bug that applied the 6 button hack to all games
+-Fixed (hopefully) an issue that caused a crash during the first sync, and prevented the game count extension patch from applying
+-Removed hack for pressing F4 to open data directory
+-Changed open directory command to use ShellExecute 
+
+2019-12-17
+-Incorporated swingfixes to uninstall, data reset, and others.
+-ScreenScraper can now search by game title typed in add game form. Search order is: ROM hash, Rom Name, Game Title.
+-Added question and checkmark icons to SwingMessageBox
+-Stability fixes
+
+2019-12-15
+-Fail-safe mode implemented. (Old installations may not find the backup as they should now be inside the region folder, talk to a dev if you need)
+-Reset console settings on uninstall
+-Added menu function to export the backup (Tools>Advanced>Export backup) to allow creating a copy at a safe location
+-Fixed bug that would identify a console reset as USB being removed 
+-Delete button will not attempt deleting a stock game
+-Append numbers to rom names if a rom being added conflicts with an existing rom name
+-Fixed a bug with name numbering
+-Fixed the issue where release year would duplicate 
+-Fixed the payloads not being deleted after update is used
+-Fixed a bug that would force the update prompt to be coming back every time
+-Fixed the issue with Release Year being added twice when scraped data is edited
+
+2019-12-12
+-Fixed the sorting so that Dynamite Headdy doesn't show for Asian countries anymore
+-Description text will have the line lengths/count formatted automatically
+-Added option to enable 6 button hack
+-Added checkboxes for the smoothing menu options
+-Program will download data from the console if local data doesn't exist (i.e.: Installed PL on another computer)
+-Mod Manager now perform tasks in background (and shows PL spinner)
+-Fixed a bug that would trigger USB disconnection if USB was present and PL is kept on while restarting the console without USB.
+- When the console is turned off with the app running, Disable the sync button
+- Fixed status bar doesn't update to disconnected if already connected
+- Improved edit button locking depending on state of console + type of console connected
+- can't edit stock games so edits disabled
+- fixed group box coloring
+- remove sync dialog as not needed
+- recolored stuff
+- can no longer remove mods if not selected
+- Disable manage mods menustrip item if not connected
+-Fixed sync button disabled after sync
+-Added option of Yes No Cancel for SwingMessageBox (Fixes overriding scraped data)
+-Added specific message for when ScreenScraper doesn't return data due to Threads exceeded
+
+2019-12-11
+-Updated the win32 message boxes to swing style message boxes
+-Fixed a bug that made the ROM region detection be ignored
+-The user will be yelled at if the USB drive is removed while the system is in operation
+-NAND backups now happen in the region folder under the Backup folder
+- Added Project Lunar Wizard Assistant
+- Reworded some messages and selected better icons for the messages
+- Fixed the parsing of SSH output to text box to not include bash colour codes and symbols. (Not perfect but a LOT better)
+- Removed sync dialog in favour of spinner
+- Fixed menustrip
+- Added consitent line to menustrip
+- Added better form coloring globally
+
+2019-12-10
+-Force execute permissions on m2engage after uninstall
+-Fixed a merge issue that disintegrated the RA/BootMenu artwork
+
+2019-12-09
+-Updated rom system detection
+-Merged swingflip's Dark UI thingy #mixedfeelings
+-Changed add game and manage mod to dark style
+-Sync in progress box while syncing
+-Fixed a bug that would overwrite a rom if a game being added has a same rom name
+
+2019-12-07
+-Added various status messages while background tasks are being performed (i.e.: Update, Sync)
+-Boot Menu and RA entries on the main UI
+-Removed full sync as it was unnecessary
+-Fixed alldata patching procedure, now pertformed after installation (requires a sync to transfer the patched files)
+-Removed fixed wait times on uninstall, now using script flags
+
+2019-12-04
+-Updated the uninstall function to remove traces of original data from a failed upload before uploading it
+
+2019-12-02
+-Fixed a bug that would cause some games to not return results due to the contents of the response
+-Prevent games from being re-added to the list if Get Game Info button is pressed more than once
+
+2019-12-01
+-Added mod manager (Tools > Manage Mods)
+-Changed the wait after update installation to wait for disconnection instead of 20 seconds
+
+2019-11-31
+-Updated ScreenScraper to handle various empty fields
+
+2019-11-30
+-ScreenScraper support added.
+-ScreenScraper update to have redundancy when hash search fails (MD5/SHA1 hash -> ROM name -> Game Name)
+-Allow overriding scraped text if text is edited on the add game screen
+
+2019-11-27
+-Remove file attributes (hiden, readonly, etc) when a ROM is copied to the local files
+-Immediately update tree names when renaming a game title
+-Only save changes when changes are made
+-Changed version numbering to match installer version
+
+2019-11-26
+-Edit game data (text only)
+-Enable/Disable smoothing options
+-Updated the rom name to title name conversion to replace underscores with spaces
+
+2019-11-24
+Auto select cover region based on system region
+Better error messages if scraper fails to retrieve game data
+
+2019-11-21
+-Moved installation elegibility check to be performed before file cleanup
+
+2019-11-20
+-Updates that allow adding more than 38, 49, 46, 36 games to JP, EU, US, AS units respectively. 
+-Announce update available before downlaoding it. 
+-Lock the update menu while an update is in progress
+-Skip download if a payload already exists in the update cache
+-Gave 2 pixels border when drawing logo on spine for better aesthetics
+
+2019-11-19
+-Fixed a silly error that would delete backup after saving it
+-Removed backup folder deletion
+-Skip backups if they already exist
+
+2019-11-18
+-Fixed an issue recognizing asian region consoles
+-Added a check during installation to prevent installing if Project Lunar is already installed
+
+2019-11-15
+-Small update to the update download function
+-Small update to the httpclient parameters
+-Updated the method to rename textures and streams. (Potentially eliminates the "file not found (stream)" error)
+-Prevent disconnected sync
+-Changed how m2engage is restarted
+-Updated the installation sequence to download the payload first (in case of error downlaoding, doesn't make user wait 8 minutes before fail)
+-Added a tools menu to launch project lunar data folder
+-Restore games from backup no longer closes the game manager
+-Added dialog boxes when install/uninstall completes
+-Added checks to prevent installation or sync to other devices
+-Fixed an error that would occur when clicking the empty area of the scraper results list
+-Allow deleting a game by using the delete key
+-Fixed an error that would occur if accepting the delete dialog by pressing Enter
+-List of game shows games in alphabetical order. Stock games are shown in Black and new games in Blue
+-Fixed the Game_Versions sequential parameter to not have gaps when games are removed
+
+2019-11-14
+-Added update from the internet function
+-Updated sync routine to stop the emulator before sync
+-Installation will use internet payload instead of local
+-Added recovery mode
+
+2019-11-11
+-Changed timer object which should increase application responsivenes while checking console status
+-Fixed an error that occurred if two textures shared the same streams
+-Upgraded to the latest PSB library
+
+2019-11-10
+-Remove game function
+-Fixed an issue that reseting backup does not free space in the system
+-Fixed an issue with rom name that could have been causing some "Please Shutdown" errors
+-Update function added. Local files only at this time
+-Scraped entries now show the platform for each entry
+
+2019-11-09
+-Empty slots are no longer shown on the game list
+
+2019-11-08
+-Handling games with no genres reported by scraper
+-Random game code to allow adding games with same name twice
+-Removed dead line from the uninstall procedure
+-Save logs at the end of the install process
+-Add ability to force a certain rom region (May cause some games to reject running on the wrong region, or fix it)
+-Changed "Scrape" button to "Get Game Information"
+-Retrieve psb decryption key from m2engage binary
+-Change spine art on radio button selection
+-Fixed an issue when adding a game with missing information would cause all information to reset to default
+
+2019-11-07 23:45
+-Incorporated lunar build Project_Lunar_Mod-402720d in the installer
+-Fixed an exception when displaying a game missing art style for a certain region
+-Fixed an issue when different regions have different number of streams
+-Sync complete message on finish
+-Changed adding rom to respect region prefix, also device name (hopefully will fix AyanamiRei0 issue)
+-Finish button changed to Cancel button that changes name to Finish when install/uninstall is complete
+-Added Desktop Icon
+-Added Version, build, revision to the window title to help identify current versions
+
+2019-11-07 12:00
+-Region auto-select based on console region when game-manager is open
+-Default date is used when release date is not available (1988-10-29)
+-Fix error when number of players is not available
+-Fill default data if game is added without any input
+-Restore game data from backup (reset and cleanup)

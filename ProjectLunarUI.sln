@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectLunarUI", "MdMiniGameManager\ProjectLunarUI.csproj", "{A86BDA61-CD62-480B-8510-DE28573C2277}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProjectLunarInstaller", "ProjectLunarInstaller\ProjectLunarInstaller.vdproj", "{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProjectLunarInstaller32", "ProjectLunarInstaller32\ProjectLunarInstaller32.vdproj", "{B0C9E307-A186-4BF7-9711-41D5D5E3167D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|x64.ActiveCfg = Debug|x64
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|x64.Build.0 = Debug|x64
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|x86.ActiveCfg = Debug|x86
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Debug|x86.Build.0 = Debug|x86
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|x64.ActiveCfg = Release|x64
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|x64.Build.0 = Release|x64
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|x86.ActiveCfg = Release|x86
+		{A86BDA61-CD62-480B-8510-DE28573C2277}.Release|x86.Build.0 = Release|x86
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Debug|Any CPU.ActiveCfg = Debug
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Debug|x64.ActiveCfg = Debug
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Debug|x86.ActiveCfg = Debug
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Debug|x86.Build.0 = Debug
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Release|Any CPU.ActiveCfg = Release
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Release|x64.ActiveCfg = Release
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Release|x64.Build.0 = Release
+		{F2A4F2DC-BD87-4D0E-AEA0-1746FE99F600}.Release|x86.ActiveCfg = Release
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|Any CPU.ActiveCfg = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|Any CPU.Build.0 = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|x64.ActiveCfg = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|x64.Build.0 = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|x86.ActiveCfg = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Debug|x86.Build.0 = Debug
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Release|Any CPU.ActiveCfg = Release
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Release|Any CPU.Build.0 = Release
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Release|x64.ActiveCfg = Release
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Release|x86.ActiveCfg = Release
+		{B0C9E307-A186-4BF7-9711-41D5D5E3167D}.Release|x86.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C0176F2-ADA9-4425-B190-60209A4A8131}
+	EndGlobalSection
+EndGlobal

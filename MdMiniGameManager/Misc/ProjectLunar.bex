@@ -1,0 +1,1803 @@
+﻿    Option Explicit
+    
+	Dim vramOffset As Integer 
+	vramOffset = 256
+
+	Sleep 1, TvBlank
+	LoadTiles tiledata_pl_fullcolour_256_black_30c, 220, vramOffset
+	Palettes pallettedata_pl_fullcolour_256_black_30c, 0, 0, 16
+	
+	Sleep 120
+	DrawTiles mapdata_pl_fullcolour_256_black_30c, vramoffset, 4, 6, 32, 12
+	
+	Palette &H0EEE, 2, 1
+	Locate 20, 6
+	Ink 2
+	Print "PROJECT LUNAR SPECIAL ROM"
+	Locate 21, 6
+	Print "(C) 2019 ModMyClassic.com"
+	Do While 1
+	Loop
+	
+	
+mapdata_pl_fullcolour_256_black_30c:
+	Data	$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	Data	$0000,$0000,$0000,$0001,$0002,$0003,$0004,$0005,$0006,$0007,$0008,$0000,$0009,$000A,$000B,$000C,$000D,$000E,$000F,$0010,$0011,$0012,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	Data	$0000,$0000,$0000,$0013,$0014,$0015,$0016,$0017,$0018,$0019,$001A,$001B,$001C,$001D,$001E,$001F,$0020,$0021,$0022,$0023,$0024,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
+	Data	$0025,$0026,$0027,$0028,$0029,$002A,$002B,$002C,$002D,$002B,$002E,$002F,$0030,$0031,$0032,$0033,$0034,$0035,$0036,$0037,$0038,$0039,$0000,$0000,$003A,$003B,$003B,$003C,$003D,$0000,$0000,$0000
+	Data	$003E,$003F,$0040,$0041,$0000,$0000,$0042,$0043,$0044,$0042,$0045,$0046,$0047,$0047,$0047,$0048,$0049,$004A,$0000,$004B,$004C,$004D,$004E,$0000,$004F,$0047,$0047,$0050,$0051,$0052,$0000,$0000
+	Data	$003E,$003F,$0040,$0041,$0000,$0000,$0042,$0043,$0044,$0042,$0045,$0053,$0054,$0054,$0055,$0056,$0057,$0058,$0059,$005A,$005B,$005C,$005D,$0000,$005E,$005F,$0060,$0061,$0062,$0063,$0000,$0000
+	Data	$003E,$003F,$0040,$0041,$0000,$0000,$0042,$0043,$0044,$0042,$0045,$0064,$0065,$0066,$0067,$0068,$0069,$006A,$006B,$006C,$006D,$006E,$006F,$0070,$0071,$0072,$0073,$0074,$0075,$0076,$0000,$0000
+	Data	$003E,$003F,$0040,$0041,$0000,$0000,$0042,$0043,$0044,$0042,$0045,$0077,$0078,$0079,$007A,$0068,$0069,$007B,$007C,$007D,$007E,$007F,$0080,$0081,$0071,$0082,$0083,$0084,$0085,$0086,$0000,$0000
+	Data	$0087,$0088,$0089,$008A,$008B,$008B,$008C,$008D,$008E,$008F,$0090,$0091,$0092,$0093,$0094,$0095,$0096,$0097,$0098,$0099,$009A,$009B,$009C,$009D,$009E,$009F,$00A0,$00A1,$00A2,$00A3,$00A4,$0000
+	Data	$0000,$00A5,$00A6,$00A7,$00A8,$00A8,$00A9,$00AA,$00AB,$00AC,$00AD,$00AE,$00AF,$00B0,$00B1,$00B2,$00B3,$00B4,$00B5,$00B6,$00B7,$00B7,$00B8,$00B9,$00BA,$00BB,$00BC,$00BD,$00BE,$00BF,$00C0,$0000
+	Data	$0000,$00C1,$00C2,$00C3,$00C4,$00C4,$00C5,$00C6,$00C7,$00C8,$00C9,$00CA,$00CB,$00CC,$00CD,$00CE,$00CF,$00D0,$00D1,$00D2,$00C4,$00C4,$00C4,$00C4,$00D3,$00D4,$00D5,$00D6,$00D7,$00D8,$00D9,$00DA
+	Data	$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB,$00DB
+
+	
+pallettedata_pl_fullcolour_256_black_30c:
+	DataInt	$0000,$0000,$0666,$0222,$0444,$0EEE,$0888,$0AAA
+	DataInt	$0EAA,$0ECA,$0C60,$0C86,$0C64,$0C80,$0000,$0000
+
+	
+tiledata_pl_fullcolour_256_black_30c:
+	DataLong	$11111111	' Tile #0
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111112	' Tile #1
+	DataLong	$11111355
+	DataLong	$11112555
+	DataLong	$11165551
+	DataLong	$11755741
+	DataLong	$17556323
+	DataLong	$15564424
+	DataLong	$15521141
+	DataLong	$22222222	' Tile #2
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$11111112
+	DataLong	$11111112
+	DataLong	$37555732
+	DataLong	$45555542
+	DataLong	$15555512
+	DataLong	$22222211	' Tile #3
+	DataLong	$55555511
+	DataLong	$55555511
+	DataLong	$11125511
+	DataLong	$11125517
+	DataLong	$33325575
+	DataLong	$44425555
+	DataLong	$11125555
+	DataLong	$11112222	' Tile #4
+	DataLong	$11355555
+	DataLong	$12555555
+	DataLong	$65551111
+	DataLong	$55711111
+	DataLong	$56333375
+	DataLong	$64444455
+	DataLong	$21111155
+	DataLong	$22222222	' Tile #5
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$21111111
+	DataLong	$21111111
+	DataLong	$55733333
+	DataLong	$55544444
+	DataLong	$55511111
+	DataLong	$22211112	' Tile #6
+	DataLong	$55511165
+	DataLong	$55511755
+	DataLong	$65517556
+	DataLong	$65575521
+	DataLong	$65555733
+	DataLong	$65555644
+	DataLong	$65555611
+	DataLong	$22222222	' Tile #7
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$11111121
+	DataLong	$11111121
+	DataLong	$33375557
+	DataLong	$44455555
+	DataLong	$11155255
+	DataLong	$22221111	' Tile #8
+	DataLong	$55557111
+	DataLong	$55555711
+	DataLong	$11125551
+	DataLong	$11112557
+	DataLong	$33333655
+	DataLong	$44444655
+	DataLong	$11111255
+	DataLong	$32222222	' Tile #9
+	DataLong	$25555555
+	DataLong	$25555555
+	DataLong	$25511114
+	DataLong	$25511114
+	DataLong	$25533332
+	DataLong	$25544442
+	DataLong	$25511114
+	DataLong	$22411111	' Tile #10
+	DataLong	$55711112
+	DataLong	$55711165
+	DataLong	$75711555
+	DataLong	$75735552
+	DataLong	$75755523
+	DataLong	$75755444
+	DataLong	$75755111
+	DataLong	$42222222	' Tile #11
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$71111111
+	DataLong	$41111111
+	DataLong	$23355555
+	DataLong	$24455555
+	DataLong	$41155555
+	DataLong	$22222222	' Tile #12
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$41117552
+	DataLong	$41155526
+	DataLong	$55555265
+	DataLong	$55555555
+	DataLong	$55555575
+	DataLong	$22112222	' Tile #13
+	DataLong	$57155555
+	DataLong	$63555555
+	DataLong	$25553111
+	DataLong	$55511111
+	DataLong	$57333365
+	DataLong	$72444455
+	DataLong	$72111155
+	DataLong	$22222222	' Tile #14
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$14111112
+	DataLong	$14111125
+	DataLong	$55555555
+	DataLong	$55555557
+	DataLong	$62222221
+	DataLong	$22222414	' Tile #15
+	DataLong	$55555325
+	DataLong	$55553255
+	DataLong	$55512557
+	DataLong	$55165571
+	DataLong	$71755555
+	DataLong	$17555555
+	DataLong	$12222222
+	DataLong	$22222222	' Tile #16
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$11211111
+	DataLong	$11211111
+	DataLong	$55533333
+	DataLong	$55544444
+	DataLong	$25511111
+	DataLong	$22222222	' Tile #17
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$11142555
+	DataLong	$11125551
+	DataLong	$25555711
+	DataLong	$65557111
+	DataLong	$25521111
+	DataLong	$22411111	' Tile #18
+	DataLong	$55311111
+	DataLong	$53111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$15521141	' Tile #19
+	DataLong	$15521141
+	DataLong	$15521141
+	DataLong	$15521141
+	DataLong	$15521141
+	DataLong	$15564424
+	DataLong	$15521141
+	DataLong	$15557777
+	DataLong	$12222212	' Tile #20
+	DataLong	$11111112
+	DataLong	$13444442
+	DataLong	$15555555
+	DataLong	$15555555
+	DataLong	$45511111
+	DataLong	$15511111
+	DataLong	$75511111
+	DataLong	$11155555	' Tile #21
+	DataLong	$11555255
+	DataLong	$25552155
+	DataLong	$55531155
+	DataLong	$55311155
+	DataLong	$11111155
+	DataLong	$11111155
+	DataLong	$11111155
+	DataLong	$21111157	' Tile #22
+	DataLong	$21111155
+	DataLong	$21111155
+	DataLong	$21111155
+	DataLong	$21111155
+	DataLong	$64444455
+	DataLong	$21111155
+	DataLong	$57777755
+	DataLong	$62211111	' Tile #23
+	DataLong	$21111113
+	DataLong	$61111125
+	DataLong	$51111125
+	DataLong	$56111115
+	DataLong	$55444442
+	DataLong	$55611111
+	DataLong	$25577777
+	DataLong	$65555611	' Tile #24
+	DataLong	$55555611
+	DataLong	$55255611
+	DataLong	$53155611
+	DataLong	$57155611
+	DataLong	$55175524
+	DataLong	$55615552
+	DataLong	$55511755
+	DataLong	$11155155	' Tile #25
+	DataLong	$11155155
+	DataLong	$11155155
+	DataLong	$11155555
+	DataLong	$11155555
+	DataLong	$44444424
+	DataLong	$11111121
+	DataLong	$77777777
+	DataLong	$11111255	' Tile #26
+	DataLong	$11111255
+	DataLong	$11111255
+	DataLong	$11111255
+	DataLong	$11111255
+	DataLong	$44442557
+	DataLong	$11125551
+	DataLong	$77755517
+	DataLong	$11111111	' Tile #27
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11125555
+	DataLong	$11255555
+	DataLong	$12557442
+	DataLong	$65571114
+	DataLong	$55577777
+	DataLong	$25511114	' Tile #28
+	DataLong	$25511114
+	DataLong	$25511114
+	DataLong	$55511114
+	DataLong	$55711114
+	DataLong	$44444447
+	DataLong	$11111165
+	DataLong	$77777555
+	DataLong	$75755111	' Tile #29
+	DataLong	$75755111
+	DataLong	$75755111
+	DataLong	$75755111
+	DataLong	$75755111
+	DataLong	$55655444
+	DataLong	$57155111
+	DataLong	$61155777
+	DataLong	$41122222	' Tile #30
+	DataLong	$41111111
+	DataLong	$41144442
+	DataLong	$41155555
+	DataLong	$41155555
+	DataLong	$24444444
+	DataLong	$41111111
+	DataLong	$77777777
+	DataLong	$62555375	' Tile #31
+	DataLong	$25553175
+	DataLong	$55511175
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$24446555
+	DataLong	$41165555
+	DataLong	$77555675
+	DataLong	$72111155	' Tile #32
+	DataLong	$72111155
+	DataLong	$72111155
+	DataLong	$72111155
+	DataLong	$72111175
+	DataLong	$72444444
+	DataLong	$72111111
+	DataLong	$57777777
+	DataLong	$21111111	' Tile #33
+	DataLong	$21111111
+	DataLong	$21111111
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$42444442
+	DataLong	$14111135
+	DataLong	$77777755
+	DataLong	$11111111	' Tile #34
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$55555211
+	DataLong	$55552111
+	DataLong	$55521111
+	DataLong	$55311111
+	DataLong	$53111111
+	DataLong	$15511111	' Tile #35
+	DataLong	$15511111
+	DataLong	$15511111
+	DataLong	$15511111
+	DataLong	$15511111
+	DataLong	$15544444
+	DataLong	$15511111
+	DataLong	$15577777
+	DataLong	$25511111	' Tile #36
+	DataLong	$25511111
+	DataLong	$25511111
+	DataLong	$25511111
+	DataLong	$25511111
+	DataLong	$65511111
+	DataLong	$25511111
+	DataLong	$55511111
+	DataLong	$11111111	' Tile #37
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111112
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111111	' Tile #38
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$55888888
+	DataLong	$11111111	' Tile #39
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$89558888
+	DataLong	$15555555	' Tile #40
+	DataLong	$16777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777721
+	DataLong	$55555571
+	DataLong	$88885571
+	DataLong	$55511111	' Tile #41
+	DataLong	$77711111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111155	' Tile #42
+	DataLong	$11111167
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$55555555	' Tile #43
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$12777777
+	DataLong	$17555555
+	DataLong	$17558888
+	DataLong	$15555555	' Tile #44
+	DataLong	$12777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88855588
+	DataLong	$55561175	' Tile #45
+	DataLong	$77761116
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777772
+	DataLong	$55555557
+	DataLong	$88888557
+	DataLong	$55557175	' Tile #46
+	DataLong	$77761477
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88855588
+	DataLong	$55555555	' Tile #47
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88888559
+	DataLong	$55555552	' Tile #48
+	DataLong	$77777721
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88888888
+	DataLong	$11155555	' Tile #49
+	DataLong	$11167777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88888888
+	DataLong	$55555555	' Tile #50
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88888888
+	DataLong	$55552175	' Tile #51
+	DataLong	$77721127
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77772411
+	DataLong	$55555555
+	DataLong	$85555555
+	DataLong	$55555555	' Tile #52
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$74111111
+	DataLong	$55521111
+	DataLong	$55555555	' Tile #53
+	DataLong	$77777771
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$31111111	' Tile #54
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$15555555	' Tile #55
+	DataLong	$17777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111112
+	DataLong	$11111255
+	DataLong	$55511111	' Tile #56
+	DataLong	$77611111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11277777
+	DataLong	$55555555
+	DataLong	$55555895
+	DataLong	$11111111	' Tile #57
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$63111111
+	DataLong	$55571111
+	DataLong	$55555211
+	DataLong	$11111111	' Tile #58
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$67777777
+	DataLong	$55555555
+	DataLong	$55588888
+	DataLong	$11111111	' Tile #59
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777777
+	DataLong	$55555555
+	DataLong	$88888888
+	DataLong	$11111111	' Tile #60
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$77777621
+	DataLong	$55555555
+	DataLong	$88855555
+	DataLong	$11111111	' Tile #61
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$57211111
+	DataLong	$55556111
+	DataLong	$11111117	' Tile #62
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$55AAAAAA	' Tile #63
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$AB55AAAA	' Tile #64
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$AAAA5571	' Tile #65
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$AAAA5571
+	DataLong	$1755AAAA	' Tile #66
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$1755AAAA
+	DataLong	$AAA558AA	' Tile #67
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$AAAAA557	' Tile #68
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAAAA557
+	DataLong	$AAA855AA	' Tile #69
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$AAAAA95B	' Tile #70
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA959
+	DataLong	$AAAAA955
+	DataLong	$AAAAAAAA	' Tile #71
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$88888888
+	DataLong	$55555555
+	DataLong	$AAAAAAC8	' Tile #72
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$888BAAAA
+	DataLong	$555558CA
+	DataLong	$55555311	' Tile #73
+	DataLong	$AC955521
+	DataLong	$AAAB5554
+	DataLong	$AAAAC555
+	DataLong	$AAAAAC55
+	DataLong	$AAAAAA85
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA8
+	DataLong	$11111111	' Tile #74
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$71111111
+	DataLong	$53111111
+	DataLong	$57111111
+	DataLong	$55111111
+	DataLong	$11112555	' Tile #75
+	DataLong	$1112555C
+	DataLong	$113555AA
+	DataLong	$11755CAA
+	DataLong	$1355BAAA
+	DataLong	$1755AAAA
+	DataLong	$1558AAAA
+	DataLong	$255CAAAA
+	DataLong	$9CAAAAAA	' Tile #76
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAA888C
+	DataLong	$AAC55555
+	DataLong	$AC855571	' Tile #77
+	DataLong	$AAAC9556
+	DataLong	$AAAAA855
+	DataLong	$AAAAAA55
+	DataLong	$AAAAAAC5
+	DataLong	$AAAAAAA9
+	DataLong	$AAAAAAAC
+	DataLong	$BAAAAAAA
+	DataLong	$11111111	' Tile #78
+	DataLong	$11111111
+	DataLong	$21111111
+	DataLong	$51111111
+	DataLong	$52111111
+	DataLong	$55111111
+	DataLong	$55411111
+	DataLong	$55711111
+	DataLong	$558AAAAA	' Tile #79
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$55588888
+	DataLong	$55555555
+	DataLong	$AAAAAAAC	' Tile #80
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$8888BCAA
+	DataLong	$55555558
+	DataLong	$85555521	' Tile #81
+	DataLong	$AAC85555
+	DataLong	$AAAAC955
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAAC
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$CAAAAAAA
+	DataLong	$11111111	' Tile #82
+	DataLong	$31111111
+	DataLong	$52111111
+	DataLong	$55211111
+	DataLong	$55521111
+	DataLong	$C5553111
+	DataLong	$AC555111
+	DataLong	$AAB55611
+	DataLong	$AAAAA959	' Tile #83
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA955
+	DataLong	$88888888	' Tile #84
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$99999999
+	DataLong	$88888888	' Tile #85
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$999999BA
+	DataLong	$8955555B	' Tile #86
+	DataLong	$AAAC9555
+	DataLong	$AAAAA855
+	DataLong	$AAAAAA55
+	DataLong	$AAAAAA85
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAAC	' Tile #87
+	DataLong	$AAAAAAAA
+	DataLong	$8AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$55311111	' Tile #88
+	DataLong	$55211111
+	DataLong	$55711111
+	DataLong	$85511111
+	DataLong	$85511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$11111111	' Tile #89
+	DataLong	$11111113
+	DataLong	$11111117
+	DataLong	$11111115
+	DataLong	$11111125
+	DataLong	$11111155
+	DataLong	$11111455
+	DataLong	$11111755
+	DataLong	$559AAAAA	' Tile #90
+	DataLong	$55BAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$58AAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$8AAAAAAA
+	DataLong	$CAAAAAAA
+	DataLong	$AAAAAAA8
+	DataLong	$AA855855	' Tile #91
+	DataLong	$AA55CAA5
+	DataLong	$AB55AAA8
+	DataLong	$A55BAAAA
+	DataLong	$C55AAAAA
+	DataLong	$858AAAAA
+	DataLong	$55CAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$5AAAAAAA	' Tile #92
+	DataLong	$5BAAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55CAAAAA
+	DataLong	$858AAAAA
+	DataLong	$C55AAAAA
+	DataLong	$A55BAAAA
+	DataLong	$AB55AAAA
+	DataLong	$85511111	' Tile #93
+	DataLong	$A5561111
+	DataLong	$A8551111
+	DataLong	$AC554111
+	DataLong	$AA555111
+	DataLong	$AAB55111
+	DataLong	$AAA55611
+	DataLong	$AAA85511
+	DataLong	$55555555	' Tile #94
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$55555555	' Tile #95
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAB88888
+	DataLong	$55555555	' Tile #96
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$88888888
+	DataLong	$55555555	' Tile #97
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$88BAAAAA
+	DataLong	$58AAAAAA	' Tile #98
+	DataLong	$555AAAAA
+	DataLong	$8559AAAA
+	DataLong	$AB55BAAA
+	DataLong	$AA955AAA
+	DataLong	$AAC55CAA
+	DataLong	$AAA558AA
+	DataLong	$AAA555AA
+	DataLong	$AAA85511	' Tile #99
+	DataLong	$AAAA5561
+	DataLong	$AAAA8551
+	DataLong	$AAAAC554
+	DataLong	$AAAAA556
+	DataLong	$AAAAA855
+	DataLong	$AAAAA855
+	DataLong	$AAAAAB55
+	DataLong	$AAAAA955	' Tile #100
+	DataLong	$AAAAA958
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$55555555	' Tile #101
+	DataLong	$BBBBBBB5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$55555555	' Tile #102
+	DataLong	$58BBBBBB
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5555555B	' Tile #103
+	DataLong	$B855755B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AAAAAAB5	' Tile #104
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$5AAAAAAA	' Tile #105
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$B5511111	' Tile #106
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$1111155B	' Tile #107
+	DataLong	$1111655A
+	DataLong	$1111558A
+	DataLong	$111255CA
+	DataLong	$111555AA
+	DataLong	$11355BAA
+	DataLong	$11755AAA
+	DataLong	$11558AAA
+	DataLong	$AAAAAAA5	' Tile #108
+	DataLong	$AAAAAAC5
+	DataLong	$AAAAAA95
+	DataLong	$AAAAAA55
+	DataLong	$AAAAA855
+	DataLong	$AAAAA55B
+	DataLong	$AAAAB55A
+	DataLong	$AAAA958A
+	DataLong	$5BAAAAAA	' Tile #109
+	DataLong	$5AAAAAAA
+	DataLong	$8AAAAAAA
+	DataLong	$CAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AA55CAAA	' Tile #110
+	DataLong	$AA859AAA
+	DataLong	$AAC55AAA
+	DataLong	$AAA558AA
+	DataLong	$AAAB55AA
+	DataLong	$AAAA55BA
+	DataLong	$AAAA855A
+	DataLong	$AAAAA55C
+	DataLong	$AAAC5521	' Tile #111
+	DataLong	$AAAA9551
+	DataLong	$AAAAB553
+	DataLong	$AAAAA557
+	DataLong	$AAAAA855
+	DataLong	$AAAAAA55
+	DataLong	$AAAAAA95
+	DataLong	$AAAAAAB5
+	DataLong	$11111111	' Tile #112
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$21111111
+	DataLong	$51111111
+	DataLong	$54111111
+	DataLong	$558AAAAA	' Tile #113
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$558AAAAA
+	DataLong	$AA855555	' Tile #114
+	DataLong	$AA855555
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$55555555	' Tile #115
+	DataLong	$55555555
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$555CAAAA	' Tile #116
+	DataLong	$558AAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAA9
+	DataLong	$AAA555AA	' Tile #117
+	DataLong	$AAA555AA
+	DataLong	$AAA558AA
+	DataLong	$AAB55BAA
+	DataLong	$AA555AAA
+	DataLong	$A8558AAA
+	DataLong	$B555AAAA
+	DataLong	$555AAAAA
+	DataLong	$AAAAAB55	' Tile #118
+	DataLong	$AAAAAB55
+	DataLong	$AAAAAB55
+	DataLong	$AAAAA855
+	DataLong	$AAAAA957
+	DataLong	$AAAAA556
+	DataLong	$AAAAC553
+	DataLong	$AAAA8551
+	DataLong	$AAAAA95B	' Tile #119
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$AAAAAAA5	' Tile #120
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$5BAAAAAA	' Tile #121
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$AB55155B	' Tile #122
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$B5511111	' Tile #123
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511111
+	DataLong	$B5511112
+	DataLong	$B5511115
+	DataLong	$B5511145
+	DataLong	$1255AAAA	' Tile #124
+	DataLong	$1555AAAA
+	DataLong	$355BAAAA
+	DataLong	$755AAAAA
+	DataLong	$558AAAAA
+	DataLong	$55AAAAAA
+	DataLong	$59AAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$AAAA55AA	' Tile #125
+	DataLong	$AAA855AA
+	DataLong	$AAA558AA
+	DataLong	$AAB55AAA
+	DataLong	$AA559AAA
+	DataLong	$AA55AAAA
+	DataLong	$A855AAAA
+	DataLong	$A55BAAAA
+	DataLong	$AAAAA5AA	' Tile #126
+	DataLong	$AAAAA58A
+	DataLong	$AAAA855A
+	DataLong	$AAAA555B
+	DataLong	$AAAB5559
+	DataLong	$AAA95555
+	DataLong	$AAA55255
+	DataLong	$AA855175
+	DataLong	$AAAAA958	' Tile #127
+	DataLong	$AAAAAB55
+	DataLong	$AAAAAA55
+	DataLong	$AAAAAA85
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA9
+	DataLong	$BAAAAAAB
+	DataLong	$5AAAAAAA
+	DataLong	$AAAAAAA5	' Tile #128
+	DataLong	$AAAAAAA8
+	DataLong	$8AAAAAAA
+	DataLong	$5AAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$59AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$558AAAAA
+	DataLong	$57111111	' Tile #129
+	DataLong	$55111111
+	DataLong	$55611111
+	DataLong	$95511111
+	DataLong	$A5541111
+	DataLong	$A5571111
+	DataLong	$AB551111
+	DataLong	$AA556111
+	DataLong	$AA855AAA	' Tile #130
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$AAAAAAAA	' Tile #131
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$BBBB8555	' Tile #132
+	DataLong	$B5555555
+	DataLong	$A95559BA
+	DataLong	$AA555AAA
+	DataLong	$AAB559AA
+	DataLong	$AAA555BA
+	DataLong	$AAAA555A
+	DataLong	$AAAA8559
+	DataLong	$55AAAAAA	' Tile #133
+	DataLong	$8AAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAAA
+	DataLong	$AAAAAAA8
+	DataLong	$AAAAAAA8
+	DataLong	$AAAAAAAA
+	DataLong	$AAAA5561	' Tile #134
+	DataLong	$AAA95511
+	DataLong	$AA855211
+	DataLong	$AB557111
+	DataLong	$B5551111
+	DataLong	$55531111
+	DataLong	$55211111
+	DataLong	$55511111
+	DataLong	$11111117	' Tile #135
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111117
+	DataLong	$11111116
+	DataLong	$11111112
+	DataLong	$11111114
+	DataLong	$11111111
+	DataLong	$55AAAAAA	' Tile #136
+	DataLong	$55AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55DDDDDD
+	DataLong	$55DDDDDD
+	DataLong	$55DDDDDD
+	DataLong	$55DDDDDD
+	DataLong	$55BDDDDD
+	DataLong	$AB55AAAA	' Tile #137
+	DataLong	$AB55AAAA
+	DataLong	$AB55AAAA
+	DataLong	$DB55BDDD
+	DataLong	$DB558DDD
+	DataLong	$DD555DDD
+	DataLong	$DD555BDD
+	DataLong	$DDB555DD
+	DataLong	$AAAA5571	' Tile #138
+	DataLong	$AAAA5555
+	DataLong	$AAAA9555
+	DataLong	$DDDDD899
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$11111111	' Tile #139
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$99999999
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$1755AAAA	' Tile #140
+	DataLong	$5555AAAA
+	DataLong	$5555AAAA
+	DataLong	$9955DDDD
+	DataLong	$DD55DDDD
+	DataLong	$DD55DDDD
+	DataLong	$DD55DDDD
+	DataLong	$DD55DDDD
+	DataLong	$AAA558AA	' Tile #141
+	DataLong	$AAA558AA
+	DataLong	$AAA558AA
+	DataLong	$DDD559DD
+	DataLong	$DDD559DD
+	DataLong	$DDD555DD
+	DataLong	$DDD555DD
+	DataLong	$DDD955DD
+	DataLong	$AAAAA557	' Tile #142
+	DataLong	$AAAAA555
+	DataLong	$AAAAA555
+	DataLong	$DDDDDB99
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$1755AAAA	' Tile #143
+	DataLong	$5555AAAA
+	DataLong	$5555AAAA
+	DataLong	$999BDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$AAA855AA	' Tile #144
+	DataLong	$AAA855AA
+	DataLong	$AAA855AA
+	DataLong	$DDD855DD
+	DataLong	$DDD955DD
+	DataLong	$DDD555DD
+	DataLong	$DDD555DD
+	DataLong	$DDD559DD
+	DataLong	$AAAAA95B	' Tile #145
+	DataLong	$AAAAA95B
+	DataLong	$AAAAA95B
+	DataLong	$DDDDD55B
+	DataLong	$DDDDD55B
+	DataLong	$DDDDD55B
+	DataLong	$DDDDD55B
+	DataLong	$DDDDD55B
+	DataLong	$AAAAAAA5	' Tile #146
+	DataLong	$AAAAAAA5
+	DataLong	$AAAAAAA5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$5BAAAAAA	' Tile #147
+	DataLong	$5BAAAAAA
+	DataLong	$5BAAAAAA
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$AB55155B	' Tile #148
+	DataLong	$AB55155B
+	DataLong	$AB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$AAAAAAB5	' Tile #149
+	DataLong	$AAAAAAB5
+	DataLong	$AAAAAAB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$5AAAAAAA	' Tile #150
+	DataLong	$5AAAAAAA
+	DataLong	$5DAAAAAA
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$B5511175	' Tile #151
+	DataLong	$B5511155
+	DataLong	$B5511655
+	DataLong	$B5511559
+	DataLong	$B551255B
+	DataLong	$B551555D
+	DataLong	$B55155BD
+	DataLong	$B55655DD
+	DataLong	$5AAAAAAA	' Tile #152
+	DataLong	$BAAAAAAA
+	DataLong	$AAAAAAAB
+	DataLong	$DDDDDDD9
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDD55
+	DataLong	$DDDDDB55
+	DataLong	$B55AAAAA	' Tile #153
+	DataLong	$559AAAAA
+	DataLong	$55BAAAAA
+	DataLong	$55DDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$9DDDDDDD
+	DataLong	$BDDDDDDD
+	DataLong	$AA557125	' Tile #154
+	DataLong	$AA552115
+	DataLong	$A8551116
+	DataLong	$D5555555
+	DataLong	$B5555555
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$5AAAAAAA	' Tile #155
+	DataLong	$58AAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55BDDDDD
+	DataLong	$555DDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$B55AAAAA	' Tile #156
+	DataLong	$A55BAAAA
+	DataLong	$A955AAAA
+	DataLong	$DB55BDDD
+	DataLong	$DD559DDD
+	DataLong	$DDB55DDD
+	DataLong	$DDD55BDD
+	DataLong	$DDD955DD
+	DataLong	$AA955111	' Tile #157
+	DataLong	$AAD55211
+	DataLong	$AAA55511
+	DataLong	$DDDB5531
+	DataLong	$DDDD5571
+	DataLong	$DDDD8551
+	DataLong	$DDDDD552
+	DataLong	$DDDDD555
+	DataLong	$558AAAAA	' Tile #158
+	DataLong	$559AAAAA
+	DataLong	$559AAAAA
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$AA855AAA	' Tile #159
+	DataLong	$AA855AAA
+	DataLong	$AA855AAA
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$AAAAAAAA	' Tile #160
+	DataLong	$AAAAABAA
+	DataLong	$AAAAD5AA
+	DataLong	$DDDDD59D
+	DataLong	$DDDDD55B
+	DataLong	$DDDDD555
+	DataLong	$DDDDD555
+	DataLong	$DDDDD555
+	DataLong	$AAAAA555	' Tile #161
+	DataLong	$AAAAAD55
+	DataLong	$AAAAAAB5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDDB
+	DataLong	$DDDDDDDD
+	DataLong	$9DDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$BAAAAAAA	' Tile #162
+	DataLong	$5DAAAAAA
+	DataLong	$55AAAAAA
+	DataLong	$55BDDDDD
+	DataLong	$555BDDDD
+	DataLong	$B555DDDD
+	DataLong	$D555BDDD
+	DataLong	$DB555DDD
+	DataLong	$B5561111	' Tile #163
+	DataLong	$A8553111
+	DataLong	$AA555111
+	DataLong	$DDB55611
+	DataLong	$DDD95531
+	DataLong	$DDDD5551
+	DataLong	$DDDDB552
+	DataLong	$DDDDD555
+	DataLong	$11111111	' Tile #164
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$31111111
+	DataLong	$555DDDDD	' Tile #165
+	DataLong	$255BDDDD
+	DataLong	$1559DDDD
+	DataLong	$1255BDDD
+	DataLong	$11555DDD
+	DataLong	$114555DD
+	DataLong	$1112555D
+	DataLong	$11116555
+	DataLong	$DDD9555B	' Tile #166
+	DataLong	$DDDD5555
+	DataLong	$DDDDD955
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$BDDDDDDD
+	DataLong	$DDDDDDDD	' Tile #167
+	DataLong	$9DDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$DBB99999
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD	' Tile #168
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$99999999
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DD55DDDD	' Tile #169
+	DataLong	$DD55BDDD
+	DataLong	$55555DDD
+	DataLong	$55555DDD
+	DataLong	$995559DD
+	DataLong	$DD5555BD
+	DataLong	$DD55555D
+	DataLong	$DD552555
+	DataLong	$DDDB559D	' Tile #170
+	DataLong	$DDDD9555
+	DataLong	$DDDDD555
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD	' Tile #171
+	DataLong	$BDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$DBB99999
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD	' Tile #172
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$999999BB
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DD955BDD	' Tile #173
+	DataLong	$B5559DDD
+	DataLong	$5555DDDD
+	DataLong	$55BDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDD55B	' Tile #174
+	DataLong	$DDDDB55B
+	DataLong	$DDDD955B
+	DataLong	$DDDD555B
+	DataLong	$DDDB555B
+	DataLong	$DDD5555B
+	DataLong	$DD55555B
+	DataLong	$D955255B
+	DataLong	$DDDDDDD5	' Tile #175
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$5BDDDDDD	' Tile #176
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$DB55155B	' Tile #177
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$DDDDDDB5	' Tile #178
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$5DDDDDDD	' Tile #179
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$B55559DD	' Tile #180
+	DataLong	$B5555BDD
+	DataLong	$B5555DDD
+	DataLong	$B555BDDD
+	DataLong	$B555DDDD
+	DataLong	$B559DDDD
+	DataLong	$B55DDDDD
+	DataLong	$B55DDDDD
+	DataLong	$DDDDD955	' Tile #181
+	DataLong	$DDDDD55B
+	DataLong	$DDDD855D
+	DataLong	$DDDD559D
+	DataLong	$DDDB55BD
+	DataLong	$DDD555DD
+	DataLong	$DDD55BDD
+	DataLong	$DD855DDD
+	DataLong	$DDDDDDDD	' Tile #182
+	DataLong	$DDDDDDBD
+	DataLong	$DDDDDD9D
+	DataLong	$DDDDDB55
+	DataLong	$DDDDD555
+	DataLong	$DDDDB55B
+	DataLong	$DDDD955D
+	DataLong	$DDDD555D
+	DataLong	$DDDDDDDD	' Tile #183
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$BBBBBBBB
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDB55BD	' Tile #184
+	DataLong	$DDDD555D
+	DataLong	$DDDDB55B
+	DataLong	$55555559
+	DataLong	$55555555
+	DataLong	$BBBBBBBB
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDB55	' Tile #185
+	DataLong	$DDDDDD55
+	DataLong	$DDDDDD85
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD9
+	DataLong	$DDDDDDDB
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$559DDDDD	' Tile #186
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$559DDDDD
+	DataLong	$B59DDDDD
+	DataLong	$DD955DDD	' Tile #187
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$DDDDD555	' Tile #188
+	DataLong	$DDDDD553
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$55DDDDDD	' Tile #189
+	DataLong	$559DDDDD
+	DataLong	$655BDDDD
+	DataLong	$1555DDDD
+	DataLong	$13555DDD
+	DataLong	$11655BDD
+	DataLong	$111555DD
+	DataLong	$1113555D
+	DataLong	$DD8555DD	' Tile #190
+	DataLong	$DDD555BD
+	DataLong	$DDDB555B
+	DataLong	$DDDD9555
+	DataLong	$DDDDD555
+	DataLong	$DDDDDB55
+	DataLong	$DDDDDD95
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDD55	' Tile #191
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDDB
+	DataLong	$BDDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$55DDDDDD
+	DataLong	$558DDDDD
+	DataLong	$71111111	' Tile #192
+	DataLong	$52111111
+	DataLong	$55111111
+	DataLong	$55711111
+	DataLong	$B5521111
+	DataLong	$D5551111
+	DataLong	$DB557111
+	DataLong	$DD855211
+	DataLong	$11111255	' Tile #193
+	DataLong	$11111125
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$5BDDDDDD	' Tile #194
+	DataLong	$555BDDDD
+	DataLong	$755559BD
+	DataLong	$14555555
+	DataLong	$11136555
+	DataLong	$11111114
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDD	' Tile #195
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$26777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDD	' Tile #196
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DD551255	' Tile #197
+	DataLong	$DD551125
+	DataLong	$DD551112
+	DataLong	$55551111
+	DataLong	$55551111
+	DataLong	$77771111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$5BDDDDDD	' Tile #198
+	DataLong	$555BDDDD
+	DataLong	$555559BD
+	DataLong	$12555555
+	DataLong	$11147555
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDD	' Tile #199
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$22677777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDD	' Tile #200
+	DataLong	$DDDDDDDD
+	DataLong	$DDDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777762
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDB	' Tile #201
+	DataLong	$DDDDDD95
+	DataLong	$DDB95555
+	DataLong	$55555556
+	DataLong	$55557211
+	DataLong	$21111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$5557155B	' Tile #202
+	DataLong	$5571155B
+	DataLong	$5211155B
+	DataLong	$11111555
+	DataLong	$11111555
+	DataLong	$11111677
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDD5	' Tile #203
+	DataLong	$DDDDDDD5
+	DataLong	$DDDDDDD5
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$5BDDDDDD	' Tile #204
+	DataLong	$5BDDDDDD
+	DataLong	$5BDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DB55155B	' Tile #205
+	DataLong	$DB55155B
+	DataLong	$DB55155B
+	DataLong	$55551555
+	DataLong	$55551555
+	DataLong	$77761677
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDB5	' Tile #206
+	DataLong	$DDDDDDB5
+	DataLong	$DDDDDDB5
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$5DDDDDDD	' Tile #207
+	DataLong	$5DDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$B5BDDDDD	' Tile #208
+	DataLong	$B5DDDDDD
+	DataLong	$BBDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DD559DDD	' Tile #209
+	DataLong	$DB55BDDD
+	DataLong	$D555DDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDB555D	' Tile #210
+	DataLong	$DDD5555D
+	DataLong	$DDD5555D
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77772777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$D59DDDDD	' Tile #211
+	DataLong	$D99DDDDD
+	DataLong	$DB9DDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DD955DDD	' Tile #212
+	DataLong	$DD955DDD
+	DataLong	$DD955DDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDD551	' Tile #213
+	DataLong	$DDDDD551
+	DataLong	$DDDDD551
+	DataLong	$55555551
+	DataLong	$55555551
+	DataLong	$77777771
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$1111255B	' Tile #214
+	DataLong	$11111555
+	DataLong	$11111355
+	DataLong	$11111125
+	DataLong	$11111115
+	DataLong	$11111113
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDDDDDDB	' Tile #215
+	DataLong	$DDDDDDDD
+	DataLong	$5DDDDDDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$555BDDDD	' Tile #216
+	DataLong	$9555DDDD
+	DataLong	$D5558DDD
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$DDD55511	' Tile #217
+	DataLong	$DDDB5561
+	DataLong	$DDDD9554
+	DataLong	$55555555
+	DataLong	$55555555
+	DataLong	$77777777
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111	' Tile #218
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$61111111
+	DataLong	$61111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111	' Tile #219
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$11111111
+	DataLong	$00000000
