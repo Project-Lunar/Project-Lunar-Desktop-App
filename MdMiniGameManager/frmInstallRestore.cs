@@ -29,6 +29,7 @@ using DarkUI.Controls;
 using DarkUI.Docking;
 using DarkUI.Forms;
 using DarkUI.Renderers;
+using System.Configuration;
 
 namespace ProjectLunarUI
 {
@@ -45,6 +46,10 @@ namespace ProjectLunarUI
         private bool recoveryMode;
         private bool restoreMode;
         private string[] nandPartitions = { "nanda", "nandb", "nandc", "nandd", "nande", "nandf", "nandg" };
+
+        private string SystemIpAddress = ConfigurationManager.AppSettings["SystemIpAddress"].ToString();
+        private string SystemRootUsername = ConfigurationManager.AppSettings["SystemRootUsername"].ToString();
+        private string SystemRootPassword = ConfigurationManager.AppSettings["SystemRootPassword"].ToString();
 
         public bool RecoveryMode
         {
@@ -83,9 +88,9 @@ namespace ProjectLunarUI
             lunarPath = Path.Combine(Application.StartupPath, @"lunar_data");
             //basePath = $@"{lunarPath}\alldata.psb_extracted";
 
-            KeyboardInteractiveAuthenticationMethod keyAuth = new KeyboardInteractiveAuthenticationMethod("root");
+            KeyboardInteractiveAuthenticationMethod keyAuth = new KeyboardInteractiveAuthenticationMethod(SystemRootUsername);
             keyAuth.AuthenticationPrompt += KeyAuth_AuthenticationPrompt;
-            connInfo = new ConnectionInfo("169.254.215.100", "root", keyAuth);
+            connInfo = new ConnectionInfo(SystemIpAddress, SystemRootUsername, keyAuth);
         }
 
         private void KeyAuth_AuthenticationPrompt(object sender, Renci.SshNet.Common.AuthenticationPromptEventArgs e)
@@ -94,7 +99,7 @@ namespace ProjectLunarUI
             {
                 if (prompt.Request.IndexOf("Password:", StringComparison.InvariantCultureIgnoreCase) != -1)
                 {
-                    prompt.Response = "5A7213";
+                    prompt.Response = SystemRootPassword;
                 }
             }
         }
@@ -116,7 +121,7 @@ namespace ProjectLunarUI
             bool consoleDetected = false;
             try
             {
-                using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+                using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                 {
                     ssh.Connect();
                 }
@@ -160,7 +165,7 @@ namespace ProjectLunarUI
                     {
                         workInProgress = true;
                         FelMemBoot();
-                        using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+                        using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                         {
                             while (!ssh.IsConnected)
                             {
@@ -174,10 +179,11 @@ namespace ProjectLunarUI
                                 }
                             }
                         }
+
                         LogProgress("\r\nRecovery mode initiated. You can now SSH into the system.\r\n\r\n" +
                                         "Connection details:\r\n" +
-                                        "IP Address: 169.254.215.100\r\n" +
-                                        "Username: root");
+                                        $"IP Address: {SystemIpAddress}\r\n" +
+                                        $"Username: {SystemRootUsername}");
 
                         workInProgress = false;
                         ChangeCancelToFinish();
@@ -216,7 +222,7 @@ namespace ProjectLunarUI
                     {
                         workInProgress = true;
                         FelMemBoot();
-                        using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+                        using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                         {
                             while (!ssh.IsConnected)
                             {
@@ -463,7 +469,7 @@ namespace ProjectLunarUI
             workInProgress = true;
             LogProgress("Starting uninstall, attempting to connect via SSH");
             string systemRegion = string.Empty;
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 ssh.Connect();
                 string fileName = ssh.RunCommand("cat /version").Result.Replace("\n", "");
@@ -497,7 +503,7 @@ namespace ProjectLunarUI
                 shell.DataReceived += Shell_DataReceived;
                 shell.WriteLine("/opt/uninstall 1 &");
 
-                using (SftpClient sftp = new SftpClient("169.254.215.100", "root", "5A7213"))
+                using (SftpClient sftp = new SftpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                 {
                     sftp.Connect();
                     while (!sftp.Exists("/tmp/stage1.flag"))
@@ -550,7 +556,7 @@ namespace ProjectLunarUI
                 ssh.RunCommand("rm -f /usr/game/alldata.psb.m");
                 ssh.RunCommand("rm -f /usr/game/m2engage");
 
-                using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+                using (ScpClient scp = new ScpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                 {
                     scp.Connect();
                     scp.Upload(new FileInfo($@"{lunarPath}\Backup\{dev_id}\alldata.bin"), "/usr/game/alldata.bin");
@@ -589,13 +595,13 @@ namespace ProjectLunarUI
         {
             string md5 = payloadMD5.Split(' ')[0];
             string fileName = payloadMD5.Split(' ')[2].Replace("\n", "");
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 ssh.Connect();
 
                 //Upload TEH payload
                 LogProgress("Uploading install scripts");
-                using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+                using (ScpClient scp = new ScpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                 {
                     scp.Connect();
                     scp.Upload(new FileInfo($@"{lunarPath}\updatecache\{fileName}"), $"/tmp/{fileName}");
@@ -629,7 +635,7 @@ namespace ProjectLunarUI
 
         private void PerformInstallation(string dev_id)
         {
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 ssh.Connect();
 
@@ -644,7 +650,7 @@ namespace ProjectLunarUI
 
                     //Upload extracted data directories
                     LogProgress("Uploading decompressed data");
-                    using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+                    using (ScpClient scp = new ScpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                     {
                         scp.Connect();
                         scp.Upload(new DirectoryInfo($@"{basePath}\system"), "/tmp/mount/nandd/usr/game/system");
@@ -751,7 +757,7 @@ namespace ProjectLunarUI
         private string RestoreNand()
         {
             string systemRegion = string.Empty;
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 ssh.Connect();
 
@@ -824,7 +830,7 @@ namespace ProjectLunarUI
         private string DumpNand()
         {
             string dev_id = string.Empty;
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 ssh.Connect();
 
@@ -864,7 +870,7 @@ namespace ProjectLunarUI
 
         private void VerifyConsoleElegibility(bool restoreMode)
         {
-            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            using (SshClient ssh = new SshClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 //Wait for SSH connection to establish
                 while (!ssh.IsConnected)
@@ -1016,7 +1022,7 @@ namespace ProjectLunarUI
             LogProgress($"Restoring {nandName}");
 
             byte[] nandData = File.ReadAllBytes(fileFlashTarget);
-            using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+            using (ScpClient scp = new ScpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
             {
                 scp.Connect();
                 int chunkSize = 1024 * 1024; //1 MB
@@ -1127,7 +1133,7 @@ namespace ProjectLunarUI
         {
             using (FileStream downloadFile = File.OpenWrite(destination))
             {
-                using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+                using (ScpClient scp = new ScpClient(SystemIpAddress, SystemRootUsername, SystemRootPassword))
                 {
                     scp.Downloading += Scp_Downloading;
                     scp.Connect();
