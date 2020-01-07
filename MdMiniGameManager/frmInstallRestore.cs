@@ -961,22 +961,31 @@ namespace ProjectLunarUI
         {
 
             string txtToParse = Encoding.Default.GetString(e.Data);
-            //TODO: Shoving this in an array would be cleaner.
-            txtToParse = txtToParse.Replace("[00;32m", "");
-            txtToParse = txtToParse.Replace("[00;33m", "");
-            txtToParse = txtToParse.Replace("[00;34m", "");
-            txtToParse = txtToParse.Replace("[00;35m", "");
-            txtToParse = txtToParse.Replace("[00;36m", "");
-            txtToParse = txtToParse.Replace("[01;32m", "");
-            txtToParse = txtToParse.Replace("[01;34m", "");
-            txtToParse = txtToParse.Replace("[0m", "");
-            txtToParse = txtToParse.Replace("[00m", "");
-            txtToParse = txtToParse.Replace("", ""); //Hidden character
-            txtToParse = txtToParse.Replace("â–„", "");
-            txtToParse = txtToParse.Replace("â–ˆ", "");
-            txtToParse = txtToParse.Replace("â–ˆ", ""); //With Hidden character
-            txtToParse = txtToParse.Replace("â€™", "");
-            txtToParse = txtToParse.Replace("[H[J", "");
+
+            var removeCharacters = new string[]
+            {
+                "[00;32m",
+                "[00;33m",
+                "[00;34m",
+                "[00;35m",
+                "[00;36m",
+                "[01;32m",
+                "[01;34m",
+                "[0m",
+                "[00m",
+                "", //Hidden character
+                "â–„",
+                "â–ˆ",
+                "â–ˆ", //With Hidden character
+                "â€™",
+                "[H[J"
+            };
+
+            foreach (var removal in removeCharacters)
+            {
+                txtToParse = txtToParse.Replace(removal, "");
+            }
+
             // The below is just to prettify the uninstall page,
             // not clean or required but no reason not to...
             txtToParse = txtToParse.Replace("  RAM Usage", "   RAM Usage");
