@@ -852,13 +852,11 @@ namespace ProjectLunarUI
                 {
                     Directory.CreateDirectory(path);
                 }
-                DumpNAND(ssh, path, fileName, "nanda");
-                DumpNAND(ssh, path, fileName, "nandb");
-                DumpNAND(ssh, path, fileName, "nandc");
-                DumpNAND(ssh, path, fileName, "nandd");
-                DumpNAND(ssh, path, fileName, "nande");
-                DumpNAND(ssh, path, fileName, "nandf");
-                DumpNAND(ssh, path, fileName, "nandg");
+
+                foreach (var partition in nandPartitions)
+                {
+                    DumpNAND(ssh, path, fileName, partition);
+                }
 
                 //Splash screen update
                 ssh.RunCommand("killall sdl_display &> \"/dev/null\"");
