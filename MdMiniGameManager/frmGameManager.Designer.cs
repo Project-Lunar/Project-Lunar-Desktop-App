@@ -107,18 +107,31 @@
             this.checkOnlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openlocalDataFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openLocalIPSFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.restoreGamesFromBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enterRecoveryModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.failSafeRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fixMisplacedSavestatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuChangeBGmusic = new System.Windows.Forms.ToolStripMenuItem();
             this.smoothingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableForScanlinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAlwaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pixelPerfectModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pixelPOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PixelPOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.correct87ModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.on87ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.off87ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceSpecificRegionBGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceENToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgForceUSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgForceJPNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bgRestoreDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -132,7 +145,6 @@
             this.menuStripLine = new System.Windows.Forms.PictureBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.cboSystemRegion = new DarkUI.Controls.DarkComboBox();
-            this.openLocalIPSFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxArt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSpine)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -1092,6 +1104,15 @@
             this.openlocalDataFolderToolStripMenuItem.Text = "Open &local data folder";
             this.openlocalDataFolderToolStripMenuItem.Click += new System.EventHandler(this.openlocalDataFolderToolStripMenuItem_Click);
             // 
+            // openLocalIPSFolderToolStripMenuItem
+            // 
+            this.openLocalIPSFolderToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.openLocalIPSFolderToolStripMenuItem.Name = "openLocalIPSFolderToolStripMenuItem";
+            this.openLocalIPSFolderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.openLocalIPSFolderToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.openLocalIPSFolderToolStripMenuItem.Text = "Open local &IPS folder";
+            this.openLocalIPSFolderToolStripMenuItem.Click += new System.EventHandler(this.openLocalIPSFolderToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
@@ -1119,7 +1140,8 @@
             // 
             this.advancedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.failSafeRestoreToolStripMenuItem,
-            this.exportBackupToolStripMenuItem});
+            this.exportBackupToolStripMenuItem,
+            this.fixMisplacedSavestatesToolStripMenuItem});
             this.advancedToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
             this.advancedToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
@@ -1129,7 +1151,7 @@
             // 
             this.failSafeRestoreToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.failSafeRestoreToolStripMenuItem.Name = "failSafeRestoreToolStripMenuItem";
-            this.failSafeRestoreToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.failSafeRestoreToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.failSafeRestoreToolStripMenuItem.Text = "&Fail-safe restore";
             this.failSafeRestoreToolStripMenuItem.Click += new System.EventHandler(this.failSafeRestoreToolStripMenuItem_Click);
             // 
@@ -1137,15 +1159,26 @@
             // 
             this.exportBackupToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.exportBackupToolStripMenuItem.Name = "exportBackupToolStripMenuItem";
-            this.exportBackupToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exportBackupToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.exportBackupToolStripMenuItem.Text = "&Export backup";
             this.exportBackupToolStripMenuItem.Click += new System.EventHandler(this.exportBackupToolStripMenuItem_Click);
+            // 
+            // fixMisplacedSavestatesToolStripMenuItem
+            // 
+            this.fixMisplacedSavestatesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.fixMisplacedSavestatesToolStripMenuItem.Name = "fixMisplacedSavestatesToolStripMenuItem";
+            this.fixMisplacedSavestatesToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.fixMisplacedSavestatesToolStripMenuItem.Text = "Fix misplaced save-states";
+            this.fixMisplacedSavestatesToolStripMenuItem.Click += new System.EventHandler(this.fixMisplacedSavestatesToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuChangeBGmusic,
-            this.smoothingToolStripMenuItem});
+            this.smoothingToolStripMenuItem,
+            this.pixelPerfectModeToolStripMenuItem,
+            this.correct87ModeToolStripMenuItem,
+            this.forceSpecificRegionBGToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -1155,7 +1188,7 @@
             // 
             this.toolStripMenuChangeBGmusic.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.toolStripMenuChangeBGmusic.Name = "toolStripMenuChangeBGmusic";
-            this.toolStripMenuChangeBGmusic.Size = new System.Drawing.Size(217, 22);
+            this.toolStripMenuChangeBGmusic.Size = new System.Drawing.Size(218, 22);
             this.toolStripMenuChangeBGmusic.Text = "&Change background music";
             this.toolStripMenuChangeBGmusic.Click += new System.EventHandler(this.toolStripMenuChangeBGmusic_Click);
             // 
@@ -1168,7 +1201,7 @@
             this.restoreDefaultToolStripMenuItem});
             this.smoothingToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.smoothingToolStripMenuItem.Name = "smoothingToolStripMenuItem";
-            this.smoothingToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.smoothingToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.smoothingToolStripMenuItem.Text = "&Smoothing";
             // 
             // disableForScanlinesToolStripMenuItem
@@ -1200,6 +1233,111 @@
             this.restoreDefaultToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.restoreDefaultToolStripMenuItem.Text = "&Restore Default";
             this.restoreDefaultToolStripMenuItem.Click += new System.EventHandler(this.restoreDefaultToolStripMenuItem_Click);
+            // 
+            // pixelPerfectModeToolStripMenuItem
+            // 
+            this.pixelPerfectModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pixelPOnToolStripMenuItem,
+            this.PixelPOffToolStripMenuItem});
+            this.pixelPerfectModeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.pixelPerfectModeToolStripMenuItem.Name = "pixelPerfectModeToolStripMenuItem";
+            this.pixelPerfectModeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.pixelPerfectModeToolStripMenuItem.Text = "&Enable pixel perfect mode";
+            // 
+            // pixelPOnToolStripMenuItem
+            // 
+            this.pixelPOnToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.pixelPOnToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.pixelPOnToolStripMenuItem.Name = "pixelPOnToolStripMenuItem";
+            this.pixelPOnToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.pixelPOnToolStripMenuItem.Text = "&Enable Always";
+            this.pixelPOnToolStripMenuItem.Click += new System.EventHandler(this.onToolStripMenuItem_Click);
+            // 
+            // PixelPOffToolStripMenuItem
+            // 
+            this.PixelPOffToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.PixelPOffToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.PixelPOffToolStripMenuItem.Name = "PixelPOffToolStripMenuItem";
+            this.PixelPOffToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.PixelPOffToolStripMenuItem.Text = "&Restore Default";
+            this.PixelPOffToolStripMenuItem.Click += new System.EventHandler(this.PixelPOffToolStripMenuItem_Click);
+            // 
+            // correct87ModeToolStripMenuItem
+            // 
+            this.correct87ModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.on87ToolStripMenuItem,
+            this.off87ToolStripMenuItem});
+            this.correct87ModeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.correct87ModeToolStripMenuItem.Name = "correct87ModeToolStripMenuItem";
+            this.correct87ModeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.correct87ModeToolStripMenuItem.Text = "&Force 8:7 mode for 256x224";
+            this.correct87ModeToolStripMenuItem.Visible = false;
+            // 
+            // on87ToolStripMenuItem
+            // 
+            this.on87ToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.on87ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.on87ToolStripMenuItem.Name = "on87ToolStripMenuItem";
+            this.on87ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.on87ToolStripMenuItem.Text = "&Enable Always";
+            this.on87ToolStripMenuItem.Click += new System.EventHandler(this.on87ToolStripMenuItem_Click);
+            // 
+            // off87ToolStripMenuItem
+            // 
+            this.off87ToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.off87ToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.off87ToolStripMenuItem.Name = "off87ToolStripMenuItem";
+            this.off87ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.off87ToolStripMenuItem.Text = "&Restore Default";
+            this.off87ToolStripMenuItem.Click += new System.EventHandler(this.off87ToolStripMenuItem_Click);
+            // 
+            // forceSpecificRegionBGToolStripMenuItem
+            // 
+            this.forceSpecificRegionBGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.forceENToolStripMenuItem,
+            this.bgForceUSToolStripMenuItem,
+            this.bgForceJPNToolStripMenuItem,
+            this.bgRestoreDefaultToolStripMenuItem});
+            this.forceSpecificRegionBGToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.forceSpecificRegionBGToolStripMenuItem.Name = "forceSpecificRegionBGToolStripMenuItem";
+            this.forceSpecificRegionBGToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.forceSpecificRegionBGToolStripMenuItem.Text = "Force specific region BG";
+            // 
+            // forceENToolStripMenuItem
+            // 
+            this.forceENToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.forceENToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.forceENToolStripMenuItem.Name = "forceENToolStripMenuItem";
+            this.forceENToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.forceENToolStripMenuItem.Text = "Force &EN background";
+            this.forceENToolStripMenuItem.Click += new System.EventHandler(this.forceENToolStripMenuItem_Click);
+            // 
+            // bgForceUSToolStripMenuItem
+            // 
+            this.bgForceUSToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.bgForceUSToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bgForceUSToolStripMenuItem.Name = "bgForceUSToolStripMenuItem";
+            this.bgForceUSToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.bgForceUSToolStripMenuItem.Text = "Force &US background";
+            this.bgForceUSToolStripMenuItem.Click += new System.EventHandler(this.bgForceUSToolStripMenuItem_Click);
+            // 
+            // bgForceJPNToolStripMenuItem
+            // 
+            this.bgForceJPNToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.bgForceJPNToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bgForceJPNToolStripMenuItem.Name = "bgForceJPNToolStripMenuItem";
+            this.bgForceJPNToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.bgForceJPNToolStripMenuItem.Text = "Force &JPN background";
+            this.bgForceJPNToolStripMenuItem.Click += new System.EventHandler(this.bgForceJPNToolStripMenuItem_Click);
+            // 
+            // bgRestoreDefaultToolStripMenuItem
+            // 
+            this.bgRestoreDefaultToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.bgRestoreDefaultToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bgRestoreDefaultToolStripMenuItem.Name = "bgRestoreDefaultToolStripMenuItem";
+            this.bgRestoreDefaultToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.bgRestoreDefaultToolStripMenuItem.Text = "&Restore Default";
+            this.bgRestoreDefaultToolStripMenuItem.Click += new System.EventHandler(this.bgRestoreDefaultToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1328,15 +1466,6 @@
             this.cboSystemRegion.Text = "System Region";
             this.cboSystemRegion.TextPadding = new System.Windows.Forms.Padding(2);
             this.cboSystemRegion.SelectedIndexChanged += new System.EventHandler(this.cboSystemRegion_SelectedIndexChanged);
-            // 
-            // openLocalIPSFolderToolStripMenuItem
-            // 
-            this.openLocalIPSFolderToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.openLocalIPSFolderToolStripMenuItem.Name = "openLocalIPSFolderToolStripMenuItem";
-            this.openLocalIPSFolderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.openLocalIPSFolderToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.openLocalIPSFolderToolStripMenuItem.Text = "Open local &IPS folder";
-            this.openLocalIPSFolderToolStripMenuItem.Click += new System.EventHandler(this.openLocalIPSFolderToolStripMenuItem_Click);
             // 
             // frmGameManager
             // 
@@ -1500,6 +1629,18 @@
         private DarkUI.Controls.DarkComboBox cboSystemRegion;
         private System.Windows.Forms.ToolStripMenuItem getIPSPatchesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openLocalIPSFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fixMisplacedSavestatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pixelPerfectModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pixelPOnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PixelPOffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem correct87ModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem on87ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem off87ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forceSpecificRegionBGToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forceENToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bgForceUSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bgForceJPNToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bgRestoreDefaultToolStripMenuItem;
     }
 }
 

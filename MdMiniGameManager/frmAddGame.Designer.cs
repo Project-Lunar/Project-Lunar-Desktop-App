@@ -44,6 +44,7 @@
             this.cmdLoadSpine = new DarkUI.Controls.DarkButton();
             this.cmdLoadBox = new DarkUI.Controls.DarkButton();
             this.grpDetails = new DarkUI.Controls.DarkGroupBox();
+            this.chkCompression = new DarkUI.Controls.DarkCheckBox();
             this.chkApplyIPS = new DarkUI.Controls.DarkCheckBox();
             this.chk6ButtonHack = new DarkUI.Controls.DarkCheckBox();
             this.label10 = new DarkUI.Controls.DarkLabel();
@@ -71,6 +72,11 @@
             this.rdoE = new DarkUI.Controls.DarkRadioButton();
             this.rdoJ = new DarkUI.Controls.DarkRadioButton();
             this.rdoDetected = new DarkUI.Controls.DarkRadioButton();
+            this.executorGroupBox = new DarkUI.Controls.DarkGroupBox();
+            this.txtCustomCommand = new DarkUI.Controls.DarkTextBox();
+            this.darkLabel2 = new DarkUI.Controls.DarkLabel();
+            this.cboExecutor = new DarkUI.Controls.DarkComboBox();
+            this.darkLabel1 = new DarkUI.Controls.DarkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picSpine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxArt)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -78,6 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picGenre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNumPlayers)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.executorGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // picSpine
@@ -251,6 +258,7 @@
             // 
             this.grpDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.grpDetails.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.grpDetails.Controls.Add(this.chkCompression);
             this.grpDetails.Controls.Add(this.chkApplyIPS);
             this.grpDetails.Controls.Add(this.chk6ButtonHack);
             this.grpDetails.Controls.Add(this.label10);
@@ -280,12 +288,21 @@
             this.grpDetails.TabStop = false;
             this.grpDetails.Text = "Details";
             // 
+            // chkCompression
+            // 
+            this.chkCompression.AutoSize = true;
+            this.chkCompression.Location = new System.Drawing.Point(243, 299);
+            this.chkCompression.Name = "chkCompression";
+            this.chkCompression.Size = new System.Drawing.Size(103, 30);
+            this.chkCompression.TabIndex = 46;
+            this.chkCompression.Text = "Compress Rom\r\n(non m2engage)";
+            // 
             // chkApplyIPS
             // 
             this.chkApplyIPS.AutoSize = true;
             this.chkApplyIPS.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkApplyIPS.Enabled = false;
-            this.chkApplyIPS.Location = new System.Drawing.Point(240, 306);
+            this.chkApplyIPS.Location = new System.Drawing.Point(129, 306);
             this.chkApplyIPS.Name = "chkApplyIPS";
             this.chkApplyIPS.Size = new System.Drawing.Size(103, 17);
             this.chkApplyIPS.TabIndex = 45;
@@ -295,7 +312,7 @@
             // 
             this.chk6ButtonHack.AutoSize = true;
             this.chk6ButtonHack.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chk6ButtonHack.Location = new System.Drawing.Point(84, 306);
+            this.chk6ButtonHack.Location = new System.Drawing.Point(15, 306);
             this.chk6ButtonHack.Name = "chk6ButtonHack";
             this.chk6ButtonHack.Size = new System.Drawing.Size(100, 17);
             this.chk6ButtonHack.TabIndex = 45;
@@ -546,7 +563,7 @@
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(259, 415);
+            this.cmdSave.Location = new System.Drawing.Point(259, 472);
             this.cmdSave.Margin = new System.Windows.Forms.Padding(2);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Padding = new System.Windows.Forms.Padding(5);
@@ -558,7 +575,7 @@
             // cmdCancel
             // 
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(416, 415);
+            this.cmdCancel.Location = new System.Drawing.Point(416, 472);
             this.cmdCancel.Margin = new System.Windows.Forms.Padding(2);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Padding = new System.Windows.Forms.Padding(5);
@@ -587,7 +604,7 @@
             this.groupBox2.Size = new System.Drawing.Size(545, 57);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "ROM Region";
+            this.groupBox2.Text = "ROM Region (Genesis/Mega Drive Only) ";
             // 
             // rdoU
             // 
@@ -631,12 +648,81 @@
             this.rdoDetected.TabStop = true;
             this.rdoDetected.Text = "Detected: ";
             // 
+            // executorGroupBox
+            // 
+            this.executorGroupBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.executorGroupBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.executorGroupBox.Controls.Add(this.txtCustomCommand);
+            this.executorGroupBox.Controls.Add(this.darkLabel2);
+            this.executorGroupBox.Controls.Add(this.cboExecutor);
+            this.executorGroupBox.Controls.Add(this.darkLabel1);
+            this.executorGroupBox.ForeColor = System.Drawing.Color.Gainsboro;
+            this.executorGroupBox.Location = new System.Drawing.Point(6, 407);
+            this.executorGroupBox.Name = "executorGroupBox";
+            this.executorGroupBox.Size = new System.Drawing.Size(755, 57);
+            this.executorGroupBox.TabIndex = 53;
+            this.executorGroupBox.TabStop = false;
+            this.executorGroupBox.Text = "ROM Execution Options";
+            // 
+            // txtCustomCommand
+            // 
+            this.txtCustomCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(59)))));
+            this.txtCustomCommand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCustomCommand.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.txtCustomCommand.Location = new System.Drawing.Point(375, 24);
+            this.txtCustomCommand.Name = "txtCustomCommand";
+            this.txtCustomCommand.Size = new System.Drawing.Size(372, 20);
+            this.txtCustomCommand.TabIndex = 48;
+            // 
+            // darkLabel2
+            // 
+            this.darkLabel2.AutoSize = true;
+            this.darkLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel2.Location = new System.Drawing.Point(273, 27);
+            this.darkLabel2.Name = "darkLabel2";
+            this.darkLabel2.Size = new System.Drawing.Size(95, 13);
+            this.darkLabel2.TabIndex = 47;
+            this.darkLabel2.Text = "Custom Command:";
+            // 
+            // cboExecutor
+            // 
+            this.cboExecutor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(59)))));
+            this.cboExecutor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.cboExecutor.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.cboExecutor.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.cboExecutor.ButtonIcon = ((System.Drawing.Bitmap)(resources.GetObject("cboExecutor.ButtonIcon")));
+            this.cboExecutor.DrawDropdownHoverOutline = false;
+            this.cboExecutor.DrawFocusRectangle = false;
+            this.cboExecutor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cboExecutor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboExecutor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboExecutor.ForeColor = System.Drawing.Color.Gainsboro;
+            this.cboExecutor.FormattingEnabled = true;
+            this.cboExecutor.Location = new System.Drawing.Point(69, 24);
+            this.cboExecutor.Name = "cboExecutor";
+            this.cboExecutor.Size = new System.Drawing.Size(192, 21);
+            this.cboExecutor.TabIndex = 46;
+            this.cboExecutor.Text = "M2Engage (Stock Emulator)";
+            this.cboExecutor.TextPadding = new System.Windows.Forms.Padding(2);
+            this.cboExecutor.SelectedIndexChanged += new System.EventHandler(this.cboExecutor_SelectedIndexChanged);
+            // 
+            // darkLabel1
+            // 
+            this.darkLabel1.AutoSize = true;
+            this.darkLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkLabel1.Location = new System.Drawing.Point(11, 27);
+            this.darkLabel1.Name = "darkLabel1";
+            this.darkLabel1.Size = new System.Drawing.Size(52, 13);
+            this.darkLabel1.TabIndex = 0;
+            this.darkLabel1.Text = "Executor:";
+            // 
             // frmAddGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(769, 451);
+            this.ClientSize = new System.Drawing.Size(768, 508);
+            this.Controls.Add(this.executorGroupBox);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdCancel);
@@ -661,6 +747,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picNumPlayers)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.executorGroupBox.ResumeLayout(false);
+            this.executorGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -708,5 +796,11 @@
         public DarkUI.Controls.DarkTextBox txtCopyright;
         private DarkUI.Controls.DarkCheckBox chk6ButtonHack;
         public DarkUI.Controls.DarkCheckBox chkApplyIPS;
+        private DarkUI.Controls.DarkGroupBox executorGroupBox;
+        private DarkUI.Controls.DarkTextBox txtCustomCommand;
+        private DarkUI.Controls.DarkLabel darkLabel2;
+        private DarkUI.Controls.DarkComboBox cboExecutor;
+        private DarkUI.Controls.DarkLabel darkLabel1;
+        private DarkUI.Controls.DarkCheckBox chkCompression;
     }
 }

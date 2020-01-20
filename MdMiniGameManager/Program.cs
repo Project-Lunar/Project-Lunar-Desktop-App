@@ -63,9 +63,23 @@ namespace ProjectLunarUI
         {
             SwingMessageBox.Show("An unexpected error occurred. If this error persists, please contact the developers at ModMyClassic. The application will exit now.",
                                  "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            File.WriteAllText($@"{Application.StartupPath}\lunar_data\logs\error-{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", ex.ToString());
 
+            LogException(ex);
             Application.Exit();
+        }
+
+        public static void LogException(Exception ex)
+        {
+            LogException(ex.ToString());
+        }
+
+        public static void LogException(string exception)
+        {
+            if (!Directory.Exists($@"{Application.StartupPath}\lunar_data\logs"))
+            {
+                Directory.CreateDirectory($@"{Application.StartupPath}\lunar_data\logs");
+            }
+            File.WriteAllText($@"{Application.StartupPath}\lunar_data\logs\error-{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt", exception);
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

@@ -30,6 +30,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -123,6 +124,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resources\FelLib.dll</HintPath>
     </Reference>
+    <Reference Include="GMWare.M2, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMWare.M2.1.0.2\lib\netstandard2.0\GMWare.M2.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -132,10 +136,14 @@
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
+    <Reference Include="SevenZipExtractor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SevenZipExtractor.1.0.14\lib\net45\SevenZipExtractor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
@@ -166,6 +174,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Allwinner.cs" />
     <Compile Include="Classes\SwingMessageBox.cs" />
     <Compile Include="frmAbout.cs">
       <SubType>Form</SubType>
@@ -209,22 +218,18 @@
     <Compile Include="frmMsgDialog.Designer.cs">
       <DependentUpon>frmMsgDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmScreenScraperCredentials.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScreenScraperCredentials.Designer.cs">
+      <DependentUpon>frmScreenScraperCredentials.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTutorial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTutorial.Designer.cs">
       <DependentUpon>frmTutorial.cs</DependentUpon>
     </Compile>
-    <Compile Include="m2engage\Alldata.cs" />
-    <Compile Include="m2engage\M2engage.cs" />
-    <Compile Include="MArchive\AllDataPacker.cs" />
-    <Compile Include="MArchive\IMArchiveCodec.cs" />
-    <Compile Include="MArchive\MArchiveCryptoStream.cs" />
-    <Compile Include="MArchive\MArchivePacker.cs" />
-    <Compile Include="MArchive\mt19937ar.cs" />
-    <Compile Include="MArchive\Utils.cs" />
-    <Compile Include="MArchive\ZlibCodec.cs" />
-    <Compile Include="MArchive\ZStandardCodec.cs" />
     <Compile Include="Models\ArchiveV1.cs" />
     <Compile Include="frmGameManager.cs">
       <SubType>Form</SubType>
@@ -232,31 +237,8 @@
     <Compile Include="frmGameManager.Designer.cs">
       <DependentUpon>frmGameManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Scraper\Interfaces\IScraper.cs" />
-    <Compile Include="Scraper\ScraperData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Psb\Analysis.cs" />
-    <Compile Include="Psb\CliStreamSource.cs" />
-    <Compile Include="Psb\EmoteCryptFilter.cs" />
-    <Compile Include="Psb\IPsbFilter.cs" />
-    <Compile Include="Psb\IPsbStreamSource.cs" />
-    <Compile Include="Psb\JStream.cs" />
-    <Compile Include="Psb\OverlayReadStream.cs" />
-    <Compile Include="Psb\PsbFlags.cs" />
-    <Compile Include="Psb\PsbReader.cs" />
-    <Compile Include="Psb\PsbTokenType.cs" />
-    <Compile Include="Psb\PsbWriter.cs" />
-    <Compile Include="Psb\RangeUsageAnalyzer.cs" />
-    <Compile Include="Psb\Writing\IKeyNamesEncoder.cs" />
-    <Compile Include="Psb\Writing\KeyNamesGenerator.cs" />
-    <Compile Include="Psb\Writing\NameNode.cs" />
-    <Compile Include="Psb\Writing\RegularNameNode.cs" />
-    <Compile Include="Psb\Writing\StandardKeyNamesEncoder.cs" />
-    <Compile Include="Psb\Writing\TerminalNameNode.cs" />
-    <Compile Include="Psb\XorShift128.cs" />
-    <Compile Include="Scraper\ScreenScraper.cs" />
-    <Compile Include="Scraper\TheGamesDB.cs" />
     <Content Include="lunar_data\driver\classic_driver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -374,9 +356,13 @@
     <Content Include="lunar_data\IPS\Winter Challenge %28USA, Europe%29 %28v1.1%29.ips">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="bin\Debug\lunar_data\executor" />
+    <None Include="bin\Debug\lunar_data\us_en_executor.bin.m" />
+    <None Include="packages.config" />
     <None Include="Resources\creds3.png" />
     <None Include="Resources\creds2.png" />
     <None Include="Resources\creds.png" />
+    <None Include="Resources\executor" />
     <None Include="Resources\opaccube.png" />
     <None Include="Resources\icn_ok.png" />
     <None Include="Resources\icn_question.png" />
@@ -446,6 +432,9 @@
     <EmbeddedResource Include="frmMsgDialog.resx">
       <DependentUpon>frmMsgDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmScreenScraperCredentials.resx">
+      <DependentUpon>frmScreenScraperCredentials.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTutorial.resx">
       <DependentUpon>frmTutorial.cs</DependentUpon>
     </EmbeddedResource>
@@ -460,7 +449,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.manifest" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -516,8 +504,6 @@
     <Content Include="lunar_data\system\font\mdmini_basefont.psb.streams\stream_9">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\ss.bin" />
-    <None Include="Resources\tgdb.bin" />
     <None Include="Resources\u-boot-sun8iw5p1-memboot.bin" />
     <None Include="Resources\uImage" />
     <None Include="Resources\uInitrd" />
@@ -526,7 +512,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\script_mode_title_select.nut" />
     <None Include="Resources\spineTemplate.png" />
   </ItemGroup>
   <ItemGroup>
@@ -553,18 +538,30 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\M2engage\M2engage\M2engage.csproj">
+      <Project>{fbb82c3e-ad73-4911-8546-0ff357a64365}</Project>
+      <Name>M2engage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\M2engage\Scraper\Scraper.csproj">
+      <Project>{6389acfa-88a9-452b-b195-d7d047d711ca}</Project>
+      <Name>Scraper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets" Condition="Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets'))" />
-  </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <Import Project="..\packages\SevenZipExtractor.1.0.14\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.14\build\SevenZipExtractor.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SevenZipExtractor.1.0.14\build\SevenZipExtractor.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SevenZipExtractor.1.0.14\build\SevenZipExtractor.targets'))" />
+    <Error Condition="!Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets'))" />
+  </Target>
+  <Import Project="..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets" Condition="Exists('..\packages\Zstandard.Net.1.1.7\build\Zstandard.Net.targets')" />
 </Project>

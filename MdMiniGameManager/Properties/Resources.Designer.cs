@@ -183,6 +183,16 @@ namespace ProjectLunarUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] executor {
+            get {
+                object obj = ResourceManager.GetObject("executor", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] fes1 {
             get {
                 object obj = ResourceManager.GetObject("fes1", resourceCulture);
@@ -499,25 +509,6 @@ namespace ProjectLunarUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {&quot;code&quot;:200,&quot;status&quot;:&quot;Success&quot;,&quot;data&quot;:{&quot;count&quot;:4271,&quot;publishers&quot;:{&quot;1&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;Microsoft Studios&quot;},&quot;2&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;Electronic Arts&quot;},&quot;3&quot;:{&quot;id&quot;:3,&quot;name&quot;:&quot;Nintendo&quot;},&quot;4&quot;:{&quot;id&quot;:4,&quot;name&quot;:&quot;Bally Mfg. Corp.&quot;},&quot;6&quot;:{&quot;id&quot;:6,&quot;name&quot;:&quot;Bandai Namco Entertainment&quot;},&quot;7&quot;:{&quot;id&quot;:7,&quot;name&quot;:&quot;Ubisoft Entertainment&quot;},&quot;8&quot;:{&quot;id&quot;:8,&quot;name&quot;:&quot;2K Games&quot;},&quot;9&quot;:{&quot;id&quot;:9,&quot;name&quot;:&quot;Capcom&quot;},&quot;11&quot;:{&quot;id&quot;:11,&quot;name&quot;:&quot;Squaresoft&quot;},&quot;12&quot;:{&quot;id&quot;:12,&quot;name&quot;:&quot;Square Enix&quot;},&quot;13&quot;:{&quot;id&quot;:13,&quot;name&quot;:&quot;Valve Corporation&quot;},&quot;14&quot;:{&quot;id&quot;:14,&quot;n....
-        /// </summary>
-        internal static string PublisherJson {
-            get {
-                return ResourceManager.GetString("PublisherJson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] script_mode_title_select {
-            get {
-                object obj = ResourceManager.GetObject("script_mode_title_select", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap spine_MMC_EU {
@@ -564,26 +555,6 @@ namespace ProjectLunarUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("spineTemplateClassic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] ss {
-            get {
-                object obj = ResourceManager.GetObject("ss", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] tgdb {
-            get {
-                object obj = ResourceManager.GetObject("tgdb", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

@@ -1,7 +1,7 @@
 ﻿using FelLib;
 using MArchiveBatchTool;
-using MArchiveBatchTool.MArchive;
-using MArchiveBatchTool.Psb;
+using GMWare.M2.MArchive;
+using GMWare.M2.Psb;
 using Newtonsoft.Json.Linq;
 using ProjectLunarUI.M2engage;
 using Renci.SshNet;
@@ -79,6 +79,8 @@ namespace ProjectLunarUI
 
         private void FrmInstallRestore_Load(object sender, EventArgs e)
         {
+            //MigrateSaves(Alldata.SRAM_Save_Count, 150);
+
             pbStatus.Maximum = 33;
             lunarPath = Path.Combine(Application.StartupPath, @"lunar_data");
             //basePath = $@"{lunarPath}\alldata.psb_extracted";
@@ -105,7 +107,7 @@ namespace ProjectLunarUI
             if (!CheckClassicDriver())
             {
                 LogProgress($"Installation did not complete successfully.");
-                SwingMessageBox.Show("There was a problem installing the device driver. Installation cannot proceed.", 
+                SwingMessageBox.Show("There was a problem installing the device driver. Installation cannot proceed.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 workInProgress = false;
@@ -324,7 +326,7 @@ namespace ProjectLunarUI
                 pbStatus.Maximum = 10;
                 UpdateLabel("Uninstalling Project Lunar");
 
-                Task.Run(()=> 
+                Task.Run(() =>
                 {
                     bool isNewMutex = false;
                     Mutex taskMutex = new Mutex(true, "Project-Lunar-Installer", out isNewMutex);
@@ -333,7 +335,7 @@ namespace ProjectLunarUI
                         taskMutex.Dispose();
                         return;
                     }
-                    PerformUninstall(); 
+                    PerformUninstall();
                 });
             }
         }
@@ -388,7 +390,7 @@ namespace ProjectLunarUI
                 driverProcess.WaitForExit();
                 return driverProcess.ExitCode == 0;
             }
-            catch (Win32Exception ex) 
+            catch (Win32Exception ex)
             {
                 //Cannot determine if driver is installed. May need to do manual installation
                 Debug.WriteLine(ex.ToString());
@@ -527,14 +529,7 @@ namespace ProjectLunarUI
 
                 }
                 LogProgress("\r\nResetting system settings");
-                shell.WriteLine("rm -f /rootfs_data/data_008_0000.bin");
-                Thread.Sleep(100);
-                shell.WriteLine("rm -f /rootfs_data/meta_008_0000.bin");
-                Thread.Sleep(100);
-                shell.WriteLine("rm -f /media/mega_drive_saves/data_008_0000.bin");
-                Thread.Sleep(100);
-                shell.WriteLine("rm -f /media/mega_drive_saves/meta_008_0000.bin");
-                Thread.Sleep(100);
+                m2engage.MigrateSaves(Alldata.SRAM_Save_Count, 150);
 
                 LogProgress("\r\nRemoving Project Lunar data");
                 //result = ssh.RunCommand($"cd {workingDir};rm -rf {dev_id}/").Result;
@@ -565,7 +560,8 @@ namespace ProjectLunarUI
                 Thread.Sleep(500);
 
                 LogProgress("\r\nUninstall phase 2");
-                shell.WriteLine("/opt/uninstall 2");
+                ssh.RunCommand("mv -f /opt/uninstall /tmp/uninstall");
+                shell.WriteLine("/tmp/uninstall 2");
 
                 while (ssh.IsConnected)
                 {
@@ -603,7 +599,7 @@ namespace ProjectLunarUI
                     {
                         File.Delete($@"{lunarPath}\updatecache\{fileName}");
                     }
-                    catch(Exception ex) 
+                    catch (Exception ex)
                     {
                         Debug.Print(ex.ToString());
                     }
@@ -730,7 +726,7 @@ namespace ProjectLunarUI
                 Directory.CreateDirectory($@"{sysPath}");
             }
 
-            if (!File.Exists($@"{lunarPath}\alldata.bin"))
+            if (!File.Exists($@"{sysPath}\alldata.bin"))
             {
                 //Download alldata files from the console
                 LogProgress("Processing original data, please wait");
@@ -773,7 +769,7 @@ namespace ProjectLunarUI
                 {
                     if (!File.Exists(Path.Combine(path, $@"{fileName}-{part}.gz")))
                     {
-                        SwingMessageBox.Show("The file: '" + Path.Combine(path, $@"{fileName}-{part}.gz") + "' is missing! cannot restore!" ,
+                        SwingMessageBox.Show("The file: '" + Path.Combine(path, $@"{fileName}-{part}.gz") + "' is missing! cannot restore!",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Close();
                         return "FAIL";
@@ -1138,7 +1134,7 @@ namespace ProjectLunarUI
 
         private void Scp_Downloading(object sender, ScpDownloadEventArgs e)
         {
-            UpdateLabel($"Downloading..."); //TODO This doesn't work ({e.Downloaded / e.Size * 100}%)");
+            UpdateLabel($"Downloading..."); //TODO: This doesn't work ({e.Downloaded / e.Size * 100}%)");
         }
 
         private void BackupData(string dev_id)

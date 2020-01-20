@@ -3,28 +3,48 @@ using Newtonsoft.Json.Linq;
 using ProjectLunarUI.M2engage;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectLunarUI
 {
     public partial class frmAddGame : DarkForm
     {
-        JObject scrapedGames;
-        JObject allPublishers;
+        private bool loadedDirectly = false;
+        private readonly string[] megaDriveExtensions = new string[] { ".md", ".gen", ".bin" };
+        private string[] hardcodedExecutorArray;
+        // When we decide on a type of persistant resource like XML or JSON then this will need
+        // to move over. (I know it's not optimal)
+        private readonly string[] raCoreArray = new string[] { "genesis_plus_gx", "picodrive", "2048", "4do", "81", "atari800", "basilisk2", "bluemsx", "bnes", "cannonball",
+                                         "cap32", "chailove", "craft", "desmume", "dinothawr", "dosbox", "dosbox_svn", "easyrpg", "fbalpha", "fbalpha2012", "flycast",
+                                         "fbalpha2012_cps1", "fbalpha2012_cps2", "fbalpha2012_cps3", "fbalpha2012_neogeo", "fbneo", "fceumm", "fmsx",
+                                         "freechaf", "freeintv", "frodo", "fuse", "gambatte", "gearboy","gpsp", "gw", "handy",
+                                         "hatari", "mame2003", "mame2003_plus", "mednafen_gba", "mednafen_lynx",
+                                         "mednafen_ngp", "mednafen_pce_fast", "mednafen_pcfx", "mednafen_snes", "mednafen_supergrafx", "mednafen_vb",
+                                         "mednafen_wswan", "melonds", "mesen", "meteor", "mgba", "minivmac", "mrboom", "mu", "mupen64plus",
+                                         "mupen64plus_next", "nekop2", "nestopia", "np2kai", "nxengine", "o2em", "parallel_n64", "pcsx_rearmed",
+                                         "pocketcdg", "pokemini", "prboom", "prosystem", "puae", "px68k", "quicknes",
+                                         "reminiscence", "sameboy", "simcp", "snes9x", "snes9x2002", "snes9x2005", "snes9x2010", "stella",
+                                         "tgbdual", "theodore", "tyrquake", "vba_next", "vbam", "vecx", "vice_x128", "vice_x64", "vice_xplus4",
+                                         "vice_xvic", "virtualjaguar", "xrick" };
+        private string[] possibleExectors;
         private string romPath;
-        string romRegion = "U";
+
+        public bool Compressed
+        {
+            get;
+            private set;
+        }
+
+        private string romRegion = "U";
         private string sysRegion;
         private string initialScrapedDescription;
         GameSystems romSystem;
@@ -81,10 +101,14 @@ namespace ProjectLunarUI
                     txtTname.Text = txtTname.Text.Substring(0, txtTname.Text.IndexOfAny(new char[] { '[', '(' }) - 1);
                 }
 
-                byte[] romData = File.ReadAllBytes(RomPath);
+                byte[] romData = new byte[0x8000];
+                using (BinaryReader romFile = new BinaryReader(File.OpenRead(romPath)))
+                {
+                    romFile.Read(romData, 0, 0x8000); //Read first 32K
+                }
                 string systemName = Encoding.Default.GetString(romData, 0x100, 16);
                 string regionCodes = Encoding.Default.GetString(romData, 0x1F0, 3);
-                string smsHeader = Encoding.Default.GetString(romData, 0x7FF0, 8);
+                string smsHeader = (romData.Length >= 0x8000 ? Encoding.Default.GetString(romData, 0x7FF0, 8) : new string(' ', 8));
                 bool smsGame = smsHeader.Equals("TMR SEGA");
 
                 if (smsGame)
@@ -95,13 +119,23 @@ namespace ProjectLunarUI
                 {
                     romSystem = GameSystems.Sega32X;
                 }
-                else
+                else if (systemName.Contains("MEGA DRIVE") || systemName.Contains("MEGADRIVE"))
                 {
                     romSystem = GameSystems.SegaMegaDrive;
                 }
+                else if (systemName.Contains("GENESIS"))
+                {
+                    romSystem = GameSystems.SegaMegaDrive;
+                }
+                else if (IsSegaCD)
+                {
+                    romSystem = GameSystems.SegaCD;
+                }
+                else
+                {
+                    romSystem = GameSystems.Unknown;
+                }
                 
-                
-
                 if (regionCodes.Contains(SysRegion.ToUpper().Substring(0, 1)))
                 {
                     romRegion = SysRegion.ToUpper().Substring(0, 1);
@@ -189,6 +223,17 @@ namespace ProjectLunarUI
             set;
         }
 
+        public bool UsingRA
+        {
+            get;
+            private set;
+        }
+        public bool IsSegaCD
+        {
+            get;
+            set;
+        }
+
         public frmAddGame()
         {
             InitializeComponent();
@@ -196,16 +241,26 @@ namespace ProjectLunarUI
             picSpine.Image = new Bitmap(30, 216);
             picNumPlayers.Image = new Bitmap(61, 48);
             picGenre.Image = new Bitmap(61, 48);
-            allPublishers = JObject.Parse(Properties.Resources.PublisherJson);
 
             StreamNumber = new Dictionary<string, int>();
             StreamNumber.Add("eu", 0);
             StreamNumber.Add("jp", 0);
             StreamNumber.Add("us", 0);
+
+            //Populate the possible exectuors
+            hardcodedExecutorArray = new string[] { "Select Executor", "M2engage (Stock Emulator)" };
+
+            possibleExectors = new string[hardcodedExecutorArray.Length + raCoreArray.Length];
+            hardcodedExecutorArray.CopyTo(possibleExectors, 0);
+            raCoreArray.CopyTo(possibleExectors, hardcodedExecutorArray.Length);
+
+            cboExecutor.DataSource = possibleExectors;
         }
 
         private void FrmAddGame_Load(object sender, EventArgs e)
         {
+            loadedDirectly = true;
+
             var type = typeof(IScraper);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                                                .SelectMany(s => s.GetTypes())
@@ -227,6 +282,36 @@ namespace ProjectLunarUI
                 chkApplyIPS.Checked = true;
             }
 
+            if (romSystem.Equals(GameSystems.SegaMegaDrive))
+            {
+                if (romName.ToLower().Contains("virtua") && romName.ToLower().Contains("racing"))
+                {
+                    cboExecutor.SelectedIndex = 2;
+                }
+                else
+                {
+                    cboExecutor.SelectedIndex = 1;
+                }
+            }
+            else
+            {
+                rdoDetected.Text = "Detected: N/A";
+                rdoDetected.Enabled = false;
+                rdoJ.Enabled = false;
+                rdoE.Enabled = false;
+                rdoU.Enabled = false;
+                chk6ButtonHack.Enabled = false;
+                txtCustomCommand.Text = "NON MD format detected! Please select RA core...";
+
+                if (romSystem.Equals(GameSystems.SegaMasterSystem) || romSystem.Equals(GameSystems.SegaCD))
+                {
+                    cboExecutor.SelectedIndex = 2;
+                }
+                else if (romSystem.Equals(GameSystems.Sega32X))
+                {
+                    cboExecutor.SelectedIndex = 3;
+                }
+            }
             CmdModMyClassicArt_Click(sender, e);
         }
 
@@ -337,10 +422,15 @@ namespace ProjectLunarUI
                 else
                 {
                     IScraper scraper = (IScraper)cboScraper.SelectedItem;
-                    boxArtBmp = scraper.GetGameImage(selectedGame.ScrapedGameData, selectedGame.Region, GameImageType.CoverFront);
+                    boxArtBmp = scraper.GetGameImage(selectedGame, selectedGame.Region, GameImageType.CoverFront);
                 }
                 if (boxArtBmp != null)
                 {
+                    if (boxArtBmp.Width > boxArtBmp.Height)
+                    {
+                        boxArtBmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    }
+
                     using (Graphics gfx = Graphics.FromImage(picBoxArt.Image))
                     {
                         gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -356,10 +446,15 @@ namespace ProjectLunarUI
                 else
                 {
                     IScraper scraper = (IScraper)cboScraper.SelectedItem;
-                    spineBmp = scraper.GetGameImage(selectedGame.ScrapedGameData, selectedGame.Region, GameImageType.CoverSpine);
+                    spineBmp = scraper.GetGameImage(selectedGame, selectedGame.Region, GameImageType.CoverSpine);
                 }
                 if (spineBmp != null)
                 {
+                    if (spineBmp.Width > spineBmp.Height)
+                    {
+                        spineBmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    }
+
                     using (Graphics gfx = Graphics.FromImage(picSpine.Image))
                     {
                         gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -400,12 +495,12 @@ namespace ProjectLunarUI
                     Bitmap logoBmp = null;
                     if (selectedGame.ClearLogo != null)
                     {
-                        logoBmp = selectedGame.ClearLogo;
+                        logoBmp = new Bitmap(selectedGame.ClearLogo);
                     }
                     else
                     {
                         IScraper scraper = (IScraper)cboScraper.SelectedItem;
-                        logoBmp = scraper.GetGameImage(selectedGame.ScrapedGameData, selectedGame.Region, GameImageType.ClearLogo);
+                        logoBmp = scraper.GetGameImage(selectedGame, selectedGame.Region, GameImageType.ClearLogo);
                     }
                     if (logoBmp !=null)
                     {
@@ -443,6 +538,46 @@ namespace ProjectLunarUI
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void cboExecutor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string romExt = string.Empty;
+            string exeRomName = string.Empty;
+            this.UsingRA = false;
+            this.DemoTime = 6216;
+            if (RomPath != null)
+            {
+                exeRomName = Alldata.CleanupRomName(romPath); //Path.GetFileName(RomPath).Replace(" ", "_");
+                romExt = Path.GetExtension(RomPath);
+            }
+            if (cboExecutor.SelectedIndex == 0 || cboExecutor.SelectedIndex == 1)
+            {
+                chkCompression.Enabled = false;
+                chkCompression.Checked = false;
+            }
+            else
+            {
+                chkCompression.Enabled = true;
+            }
+            if (!romSystem.Equals(GameSystems.SegaMegaDrive) && cboExecutor.SelectedIndex == 1)
+            {
+                SwingMessageBox.Show("This ROM is not compatible with stock emulator, Please select" +
+                                     " an appropriate executor!", "Select a different executor",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboExecutor.SelectedIndex = 0;
+                txtCustomCommand.Text = "NON MD format detected! Please select RA core...";
+            }
+            else if ( raCoreArray.Contains(possibleExectors[cboExecutor.SelectedIndex]))
+            {
+                txtCustomCommand.Text = $@"m2e_launch_ra {possibleExectors[cboExecutor.SelectedIndex]}_libretro.so {exeRomName}{romExt}";
+                this.UsingRA = true;
+                this.DemoTime = 5;
+            }
+            else
+            {
+                txtCustomCommand.Text = string.Empty;
+            }
         }
 
         private void CboPlayerNum_SelectedIndexChanged(object sender, EventArgs e)
@@ -526,16 +661,52 @@ namespace ProjectLunarUI
                 return;
             }
 
-            //Lol. This bug.
+            if (cboExecutor.SelectedIndex == 0 && loadedDirectly == true)
+            {
+                SwingMessageBox.Show("Please select an appropriate executor", "No executor selected", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+
+            // Lol. This bug.
             this.Enabled = false;
 
             string romName = Path.GetFileNameWithoutExtension(RomPath);
+            
             if (File.Exists($@"{lunarPath}\IPS\{romName}.ips") && chkApplyIPS.Checked)
             {
                 string newRomPath = $@"{lunarPath}\IPS\{romName}.bin";
                 File.Copy(RomPath, newRomPath, true);
                 ApplyIPS(newRomPath, File.ReadAllBytes($@"{lunarPath}\IPS\{romName}.ips"));
                 romPath = newRomPath;
+            }
+
+            // If selected executor is not m2engage
+            if (cboExecutor.SelectedIndex != 1 && loadedDirectly == true)
+            {
+                if (!Directory.Exists($@"{lunarPath}\executors\roms"))
+                {
+                    Directory.CreateDirectory($@"{lunarPath}\executors\roms");
+                }
+                if (chkCompression.Checked == true)
+                {
+                    if (!Directory.Exists($@"{lunarPath}\temp"))
+                    {
+                        Directory.CreateDirectory($@"{lunarPath}\temp");
+                    }
+                    File.Copy(romPath, $@"{lunarPath}\temp\{Path.GetFileName(romPath)}", true);
+                    ZipFile.CreateFromDirectory($@"{lunarPath}\temp", $@"{lunarPath}\{romName}.zip");
+                    Directory.Delete($@"{lunarPath}\temp\", true);
+
+                    romPath = $@"{lunarPath}\{romName}.zip";
+                    this.Compressed = true;
+                }
+                string[] commandElements = txtCustomCommand.Text.Split(' ');
+                string romExt = Path.GetExtension(RomPath);
+                string exeCmd = $"{commandElements[0]} {commandElements[1]} {Alldata.CleanupRomName(commandElements[2])}{romExt}";
+                txtCustomCommand.Text = exeCmd;
+                //TODO: - save exeCmd to regioncode file
+                //Set flag to add the dummy rom and .m it 
+                //Save RomPath somewhere so it can be uploaded. (if MEDIA /media/project_lunar/roms if NAND /rootfs_data/project_lunar/roms)
             }
 
             this.Cursor = Cursors.WaitCursor;
@@ -555,10 +726,15 @@ namespace ProjectLunarUI
             string romCode = string.Empty;
             romCode = Alldata.AddGameToTitlesObject(newGameTime, SpecialRomCode, TitlesObject, TexturesObject, txtTname.Text, txtDescription.Text, txtCopyright.Text, dev_name, SysRegion, DemoTime, gameData, romPath);
 
+            if (this.UsingRA)
+            {
+                File.WriteAllText($@"{lunarPath}\executors\{sysRegion.ToUpper()}_EN_{romCode}", $"{txtCustomCommand.Text}\n");
+            }
+
             //Add rom profile
             try
             {
-                RomName = Alldata.AddGameToRomsObject(romCode, RomsObject, romPath, basePath, SysRegion, GetCountry(), chk6ButtonHack.Checked);
+                RomName = Alldata.AddGameToRomsObject(romCode, RomsObject, (this.UsingRA ? "executor": romPath), basePath, SysRegion, GetCountry(), chk6ButtonHack.Checked);
             }
             catch (ArgumentException)
             {

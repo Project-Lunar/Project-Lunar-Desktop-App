@@ -1,9 +1,48 @@
 Changelog
 
+2020-01-19
+-Read only 32K of added game to search for ROM header rather than loading the entire file. 
+-Added Sega CD filter option and auto core selection.
+-Updated the uploading messages to include the name of the files being uploaded to enhace the sense of progress.
+
+2020-01-18
+-Made a modification that apparently restored ScreenScraper functionality. 
+-Resolved an issue performing a sync while running RA executor that would cause screen to flicker.
+
+2020-01-17
+-Updated uinitrd to allow install over a MD Mini that had Hakchi installed.
+-Restored the previous zip logic that doesn't pass through non-md games.
+-Auto-select GenesisPlusGX and PicoDrive for SMS and 32X ROMs respectively. Will also auto-select GenesisPlusGX for Virtua Racing.
+-Will reset executors when resetting data from backup.
+-Show a splash-screen while syncing instead of just freeze whatever's on. 
+
+2020-01-16
+-The Games DB support for searching all platforms if the game isn't  a Mega Drive game.
+-Allow passing through a zip file if it doesn't contain a Mega Drive rom. (Won't work for SNES and other cores that don't support zipped ROMs)
+-Stability updates
+
+2020-01-09
+-Added extra check on SRAM reorganization to prevent a crash if system settings don't exist. 
+-Cleaned up RA rom/executor uploads, for great justice. 
+-RA ROMs will no longer be cached locally. They will be removed from cache after a successful upload.
+-Added per game upload log if any error happens while sending large ROMs. 
+-Added RA roms to free space computation.
+
+2020-01-08
+-Auto rotate scraped box art and spine art if they're in landscape layout.
+
+2020-01-02
+-Added fix misplaced save-state function.
+
+2020-01-01
+-Replace local PSB source with nuget package
+-Fixed Save-State misplacement after deleting games
+
 2019-12-29
 -Fixed an issue that would allow an extracted ROM to remail in the local directory if a game being added got cancelled
 -Added general exception handling to thread exceptions
 -Updated thread management to prevent starting a thread multiple times
+-Increased payload download timeout to 10 minutes
 
 2019-12-28 - 1.0.43
 -Fixed a bug that would cause a crash if attempting to add a game after a space full message is shown

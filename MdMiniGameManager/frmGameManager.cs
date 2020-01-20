@@ -1,6 +1,6 @@
 ﻿using MArchiveBatchTool;
-using MArchiveBatchTool.MArchive;
-using MArchiveBatchTool.Psb;
+using GMWare.M2.MArchive;
+using GMWare.M2.Psb;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Renci.SshNet;
@@ -32,6 +32,7 @@ using DarkUI.Renderers;
 using ProjectLunarUI.M2engage;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
+using SevenZipExtractor;
 
 namespace ProjectLunarUI
 {
@@ -99,6 +100,37 @@ namespace ProjectLunarUI
 
         private void FrmGameManager_Load(object sender, EventArgs e)
         {
+            //byte[] rawData = File.ReadAllBytes(@"C:\Jogos\Mega\Fusion364\Shining Force II.srm");
+            //byte[] newData = new byte[rawData.Length / 2];
+
+            //for (int i = 1; i < newData.Length; i++)
+            //{
+            //    newData[i] = rawData[(i * 2) + 1];
+            //}
+
+            //File.WriteAllBytes(@"C:\Jogos\Mega\Fusion364\Shining Force II-filtered.srm", newData);
+
+            //SystemData sysData = SystemData.FromByteArray(File.ReadAllBytes(@"C:\Temp\MD-Mini\data_008_0000-after.bin"));
+            //File.WriteAllBytes(@"C:\Temp\MD-Mini\data_008_0000-saved.bin", sysData.ToByteArray());
+            //ZlibCodec codec = new ZlibCodec();
+            //byte[] compressedData = new byte[sysData.Sram_Data[106].Sram_Entry[0].size_enc];
+            //Array.Copy(sysData.Sram_Data[106].Sram_Image, 0, compressedData, 0, sysData.Sram_Data[106].Sram_Entry[0].size_enc);
+            //MemoryStream result = new MemoryStream(); //= codec.GetDecompressionStream(new MemoryStream(compressedData));
+
+
+            //using (Stream decompStream = codec.GetDecompressionStream(new MemoryStream(compressedData)))
+            //{
+            //    decompStream.CopyTo(result);
+            //    result.Flush();
+            //    //if (ofs.Length != decompressedLength)
+            //    //    throw new InvalidDataException("Decompressed stream length is not same as expected.");
+            //}
+            //result.Position = 0;
+
+            //byte[] sramData = new byte[result.Length];
+            //result.Read(sramData, 0, (int)result.Length);
+            //File.WriteAllBytes(@"c:\temp\sram.bin", sramData);
+
             this.Text = this.Text + " - Version: " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             // No game selected so lock controls
@@ -404,30 +436,28 @@ namespace ProjectLunarUI
             catch
             {
                 usbConnected = false;
-                if (lblMediaType.InvokeRequired)
+                if (this.InvokeRequired)
+                {
                     lblMediaType.Invoke((MethodInvoker)delegate
                     {
                         lblMediaType.Text = "Media Type: Unknown";
                     });
 
-                if (lblVolume.InvokeRequired)
                     lblVolume.Invoke((MethodInvoker)delegate
                     {
                         lblVolume.Text = "Volume: Unknown";
                     });
 
-                if (lblVolume.InvokeRequired)
                     pbFreeSpace.Invoke((MethodInvoker)delegate
                     {
                         pbFreeSpace.Value = 0;
                     });
 
-                if (lblVolume.InvokeRequired)
                     lblFreeSpace.Invoke((MethodInvoker)delegate
                     {
                         lblFreeSpace.Text = $@"Estimated free space: Disconnected";
                     });
-                if (cmdSaveChanges.InvokeRequired)
+
                     cmdSaveChanges.Invoke((MethodInvoker)delegate
                     {
                         try
@@ -442,6 +472,7 @@ namespace ProjectLunarUI
                             Console.WriteLine("Multi threading bug that I can't reproduce for the life of me just happened...");
                         }
                     });
+                }
             }
 
             if (!updateChecked)
@@ -756,7 +787,8 @@ namespace ProjectLunarUI
                 textureSources.Add(region, textureSrc);
             }
 
-
+            Alldata.TitleModeTopUpgrade(basePath, packer, touchedFiles, dev_id);
+            Alldata.TitleProfUpgrade(basePath, packer, touchedFiles, dev_id);
             titlesJsonPath = PrepareAccess($@"{basePath}\{dev_id}\config\title_mode_top.psb.m");
             texturesJsonPath = PrepareAccess($@"{basePath}\{dev_id}\motion\{sysRegion}_titleselect_{artRegion}.psb.m");
             romsJsonPath = PrepareAccess($@"{basePath}\{dev_id}\config\title_prof.psb.m");
@@ -820,6 +852,57 @@ namespace ProjectLunarUI
                 restoreDefaultToolStripMenuItem.Checked = false;
                 enableAlwaysToolStripMenuItem.Checked = false;
                 disableForScanlinesToolStripMenuItem.Checked = true;
+            }
+
+            if (utilsScript.Contains("//ys = ( 0.9 / ratio ) * 1.121"))
+            {
+                pixelPOnToolStripMenuItem.Checked = true;
+                PixelPOffToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                pixelPOnToolStripMenuItem.Checked = false;
+                PixelPOffToolStripMenuItem.Checked = true;
+            }
+
+            if (utilsScript.Contains("xs = 1.1428571428571;"))
+            {
+                on87ToolStripMenuItem.Checked = true;
+                off87ToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                on87ToolStripMenuItem.Checked = false;
+                off87ToolStripMenuItem.Checked = true;
+            }
+
+            if (utilsScript.Contains("return PKGREGION_JP;"))
+            {
+                bgForceJPNToolStripMenuItem.Checked = true;
+                bgForceUSToolStripMenuItem.Checked = false;
+                forceENToolStripMenuItem.Checked = false;
+                bgRestoreDefaultToolStripMenuItem.Checked = false;
+            }
+            else if(utilsScript.Contains("return PKGREGION_US;"))
+            {
+                bgForceJPNToolStripMenuItem.Checked = false;
+                bgForceUSToolStripMenuItem.Checked = true;
+                forceENToolStripMenuItem.Checked = false;
+                bgRestoreDefaultToolStripMenuItem.Checked = false;
+            }
+            else if (utilsScript.Contains("return PKGREGION_EU;"))
+            {
+                bgForceJPNToolStripMenuItem.Checked = false;
+                bgForceUSToolStripMenuItem.Checked = false;
+                forceENToolStripMenuItem.Checked = true;
+                bgRestoreDefaultToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                bgForceJPNToolStripMenuItem.Checked = false;
+                bgForceUSToolStripMenuItem.Checked = false;
+                forceENToolStripMenuItem.Checked = false;
+                bgRestoreDefaultToolStripMenuItem.Checked = true;
             }
 
             ReloadRegionsDropDown();
@@ -936,25 +1019,7 @@ namespace ProjectLunarUI
                 }
                 downloadFromConsole = false;
             }
-            else
-            {
-                //if (!File.Exists($@"{lunarPath}\alldata.bin"))
-                //{
-                //    //Download alldata files from the console
-                //    UpdateStatus("Downloading original data...");
-                //    try
-                //    {
-                //        DownloadFile("/usr/game/m2engage", $@"{sysPath}\m2engage");
-                //        DownloadFile("/usr/game/alldata.psb.m", $@"{sysPath}\alldata.psb.m");
-                //        DownloadFile("/usr/game/alldata.bin", $@"{sysPath}\alldata.bin");
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        SwingMessageBox.Show($"Unable to download files.\r\n{ex.ToString()}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //        return;
-                //    }
-                //}
-            }
+
             bool dataExtracted = false;
             touchedFiles.Clear();
             if (!Directory.Exists($@"{sysPath}\alldata.psb_extracted"))
@@ -973,8 +1038,10 @@ namespace ProjectLunarUI
                 DirectoryCopy($@"{lunarPath}\system\", $@"{basePath}\system\", true, true);
 
                 Alldata.ModeTitleSelectNutPatch(basePath, packer, touchedFiles);
-                Alldata.SysDataStructPatch(150, 255, basePath, packer, touchedFiles);
+                Alldata.SysDataStructPatch(150, Alldata.SRAM_Save_Count, basePath, packer, touchedFiles);
                 Alldata.PlayStandalonePatch(basePath, packer, touchedFiles);
+                Alldata.TitleModeTopUpgrade(basePath, packer, touchedFiles);
+                Alldata.TitleProfUpgrade(basePath, packer, touchedFiles);
 
                 string romPath = $@"{lunarPath}\bootmenu.bin";
                 string gameName = "Project Lunar Boot Menu";
@@ -1179,7 +1246,11 @@ namespace ProjectLunarUI
             {
                 openFileDialog.Multiselect = true;
                 openFileDialog.Title = "Browse ROM file(s)";
-                openFileDialog.Filter = "ROM Image|*.bin;*.gen;*.md;*.zip";
+                openFileDialog.Filter = "All file types|*.*|" +
+                                        "Mega Drive ROM|*.gen;*.md;*.smd;*.bin;*.zip;*.7z|" +
+                                        "Master System ROM|*.sms;*.bin;*.zip;*.7z|" +
+                                        "Sega CD CHD Image|*.chd|" +
+                                        "32X ROM|*.32X;*.gen;*.md;*.bin;*.zip;*.7z";
                 openFileDialog.FileName = "Browse ROM file(s)";
                 if (openFileDialog.ShowDialog().Equals(DialogResult.Cancel))
                 {
@@ -1191,6 +1262,7 @@ namespace ProjectLunarUI
 
             string romFile;
             bool romFromZip = false;
+            var extensions = new string[] { ".7z", ".zip", ".gen", ".md", ".bin" };
             foreach (string file in roms)
             {
                 romFile = file;
@@ -1200,20 +1272,20 @@ namespace ProjectLunarUI
                     string extractedFilePath = string.Empty;
                     using (var archive = ZipFile.OpenRead(romFile))
                     {
-                        var extensions = new string[] { ".zip", ".gen", ".md", ".bin" };
+
                         //Grab the first entry
                         ZipArchiveEntry romEntry = null;
                         foreach (var entry in archive.Entries)
                         {
                             //Grab the relative pathname for the rom
                             string fileName = entry.FullName;
-                            if (extensions.Contains(Path.GetExtension(fileName)))
-                            {
-                                //intended path once extracted would be
-                                extractedFilePath = Path.Combine(lunarPath, fileName);
-                                romEntry = entry;
-                                break;
-                            }
+                            //if (extensions.Contains(Path.GetExtension(fileName)))
+                            //{
+                            //intended path once extracted would be
+                            extractedFilePath = Path.Combine(lunarPath, fileName);
+                            romEntry = entry;
+                            break;
+                            //}
                         }
                         //ZipFile.ExtractToDirectory(romFile, lunarPath);
                         if (romEntry == null)
@@ -1226,6 +1298,44 @@ namespace ProjectLunarUI
                     }
                     romFile = extractedFilePath;
                 }
+                else if (romFile.Contains(".7z"))
+                {
+                    romFromZip = true;
+                    string extractedFilePath = string.Empty;
+                    using (var archive = new ArchiveFile(romFile))
+                    {
+                        //Grab the first entry
+                        foreach (var entry in archive.Entries)
+                        {
+                            //Grab the relative pathname for the rom
+                            string fileName = entry.FileName;
+                            if (extensions.Contains(Path.GetExtension(fileName)))
+                            {
+                                //intended path once extracted would be
+                                extractedFilePath = Path.Combine(lunarPath, fileName);
+                                entry.Extract(extractedFilePath);
+                                break;
+                            }
+                        }
+                    }
+                    romFile = extractedFilePath;
+                }
+
+                bool romFromSMD = false;
+                if (Path.GetExtension(romFile).ToLower().Equals(".smd"))
+                {
+                    byte[] decodedSMD = DecodeSMD(romFile);
+                    string binPath = $@"{lunarPath}\{Path.GetFileNameWithoutExtension(romFile)}.bin";
+                    File.WriteAllBytes(binPath, decodedSMD);
+
+                    if (romFromZip)
+                    {
+                        File.Delete(romFile);
+                    }
+
+                    romFile = binPath;
+                    romFromSMD = true;
+                }
 
                 frmAddGame addGameForm = new frmAddGame();
                 addGameForm.ImageAttributes = imageAttr;
@@ -1236,6 +1346,7 @@ namespace ProjectLunarUI
                 addGameForm.ArtRegion = artRegion;
                 addGameForm.SysRegion = sysRegion;
                 addGameForm.dev_name = dev_name;
+                addGameForm.IsSegaCD = openFileDialog.FilterIndex.Equals(4);
                 addGameForm.RomPath = romFile;
                 addGameForm.basePath = basePath;
                 addGameForm.sysPath = sysPath;
@@ -1299,9 +1410,29 @@ namespace ProjectLunarUI
                         }
 
                         string romDestPath = $@"{basePath}\system\roms\{sysRegion}_en_{addGameForm.RomName}.bin";
-                        File.Copy(addGameForm.RomPath, romDestPath, true);
-                        File.SetAttributes(romDestPath, FileAttributes.Normal);
+                        if (addGameForm.UsingRA)
+                        {
+                            string dummyRomPath = $@"{basePath}\system\roms\{sysRegion}_en_executor.bin";
+                            if (File.Exists($"{dummyRomPath}.m"))
+                            {
+                                File.Delete(dummyRomPath);
+                            }
+                            File.WriteAllBytes(dummyRomPath, Properties.Resources.ProjectLunar);
 
+                            string realRomName = Path.GetFileName(addGameForm.RomPath);
+                            string realRomExt = Path.GetExtension(realRomName);
+                            File.Copy(addGameForm.RomPath, $@"{lunarPath}\executors\roms\{Alldata.CleanupRomName(realRomName)}{realRomExt}", true);
+
+                            if (addGameForm.Compressed)
+                            {
+                                File.Delete(addGameForm.RomPath);
+                            }
+                        }
+                        else
+                        {
+                            File.Copy(addGameForm.RomPath, romDestPath, true);
+                            File.SetAttributes(romDestPath, FileAttributes.Normal);
+                        }
                         //Edit the nut script to allow an extra game
                         Alldata.ModeTitleSelectNutAddUpdate(basePath, packer, touchedFiles);
 
@@ -1310,7 +1441,7 @@ namespace ProjectLunarUI
                 }
                 finally
                 {
-                    if (romFromZip)
+                    if (romFromZip || romFromSMD)
                     {
                         File.Delete(romFile);
                     }
@@ -1328,18 +1459,7 @@ namespace ProjectLunarUI
 
         private void treeGames_DragDrop(object sender, DragEventArgs e){
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            var extensions = new string[] { ".zip", ".gen", ".md", ".bin" };
-
-            string[] validRoms = files.Where(c => extensions.Contains(Path.GetExtension(c))).ToArray();
-
-            if (validRoms.Length == 0)
-            {
-                SwingMessageBox.Show("No cannot add games. Only .bin, .md, .gen and .zip are supported at this time!", 
-                                     "Format not supported", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            AddGame(validRoms);
+            AddGame(files);
         }
 
         private void CmdAddGame_Click(object sender, EventArgs e)
@@ -1472,7 +1592,7 @@ namespace ProjectLunarUI
             }
         }
 
-        private void SyncGames(bool fullUSBSync = false)
+        private void SyncGames()
         {
             bool m2EngageRunning = false;
 
@@ -1517,6 +1637,9 @@ namespace ProjectLunarUI
 
                     result = ssh.RunCommand("ps aux | grep \"[m]2engage\"").Result;
                     m2EngageRunning = result.Contains("m2engage");
+
+                    SaveStateReorg(ssh);
+                    SramReorg(ssh);
                 }
             }
             catch
@@ -1550,10 +1673,21 @@ namespace ProjectLunarUI
             fsw.EnableRaisingEvents = false;
 
             UpdateStatus("Checking free space");
+
+            string targetRaPath = "/rootfs_data";
+            if (usbConnected)
+            {
+                targetRaPath = "/media";
+            }
+
             long updateSize = 0;
             long localSize = 0;
             int maxSpace = 0;
             int freeSpace = 0;
+
+            List<string> systemRaGameList = new List<string>();
+            List<string> localRaGameList = new List<string>();
+            List<string> extraRaGames = new List<string>();
             using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
             {
                 ssh.Connect();
@@ -1570,7 +1704,7 @@ namespace ProjectLunarUI
                 }
 
                 //check size for extra roms that were compressed before but not sent yet
-                List<string> systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split('\n').Where(c => !c.Trim().Equals("")).ToList();
+                List<string> systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 List<string> localGameList = Directory.GetFiles($@"{basePath}\system\roms").Select(c => Path.GetFileName(c)).ToList();
 
                 List<string> extraGames = localGameList.Where(c => !systemGameList.Contains(c)).ToList();
@@ -1584,9 +1718,26 @@ namespace ProjectLunarUI
                         extraGameSize += (int)(new FileInfo(extraRomPath).Length);
                     }
                 }
-
                 extraGameSize = (int)Math.Round(extraGameSize / 1024.0);
-                updateSize += extraGameSize;
+
+                int extraRaGameSize = 0;
+                if (Directory.Exists($@"{lunarPath}\executors\roms"))
+                {
+                    //Now do the same for the RA roms
+                    systemRaGameList = ssh.RunCommand($"ls {targetRaPath}/project_lunar/roms").Result.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    localRaGameList = Directory.GetFiles($@"{lunarPath}\executors\roms").Select(c => Path.GetFileName(c)).ToList();
+
+                    extraRaGames = localRaGameList.Where(c => !systemRaGameList.Contains(c)).ToList();
+
+                    foreach (string extraGame in extraRaGames)
+                    {
+                        string extraRaRomPath = $@"{lunarPath}\executors\roms\{extraGame}";
+                        extraRaGameSize += (int)(new FileInfo(extraRaRomPath).Length);
+                    }
+                    extraRaGameSize = (int)Math.Round(extraRaGameSize / 1024.0);
+                }
+                //Compute
+                updateSize += (extraGameSize + extraRaGameSize);
 
                 maxSpace = Convert.ToInt32(ssh.RunCommand("df -k /rootfs_data/ | awk '{ print $1; }' | tail -n1").Result);
                 freeSpace = Convert.ToInt32(ssh.RunCommand("df -k /rootfs_data/ | awk '{ print $3; }' | tail -n1").Result);
@@ -1618,6 +1769,8 @@ namespace ProjectLunarUI
 
             //AllDataPacker.Build(basePath, $@"{sysPath}\alldata", packer, null);
 
+            bool raOk = true;
+
             //Delete removed roms
             UpdateStatus("Removing unused ROMs");
             List<string> gamesOnSystem = new List<string>();
@@ -1625,7 +1778,7 @@ namespace ProjectLunarUI
             {
                 ssh.Connect();
 
-                List<string> systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split('\n').Where(c => !c.Trim().Equals("")).ToList();
+                List<string> systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 List<string> localGameList = Directory.GetFiles($@"{basePath}\system\roms").Select(c => Path.GetFileName(c)).ToList();
 
                 List<string> extraGames = systemGameList.Where(c => !localGameList.Contains(c)).Select(c => c = $"\"{c}\"").ToList();
@@ -1634,59 +1787,105 @@ namespace ProjectLunarUI
                 {
                     string result = ssh.RunCommand("stop_m2engage").Result;
                 }
+                else
+                {
+                    string result = ssh.RunCommand("kill_ui_programs").Result;
+                    result = ssh.RunCommand("killall -s TERM m2e_launch_ra retroarch").Result;
+                }
+
+                //PL Splash...
+                ssh.RunCommand("killall sdl_display &> \"/dev/null\"");
+                ssh.RunCommand("sdl_display /opt/project_lunar/etc/project_lunar/IMG/splashscreen.png &");
 
                 if (extraGames.Count() > 0)
                 {
                     ssh.RunCommand($"cd /usr/game/system/roms;rm {string.Join(" ", extraGames.ToArray())}");
                 }
 
+                if (Directory.Exists($@"{lunarPath}\executors"))
+                {
+                    //This wil grab file names from executors, as we should not keep a cache of RA games locally. ISO files... HELOOO? 😄
+                    List<string> executorGameList = new List<string>();
+                    foreach (string file in Directory.GetFiles($@"{lunarPath}\executors"))
+                    {
+                        string cmd = File.ReadAllText(file).Replace("\n", string.Empty);
+                        string[] cmdElements = cmd.Split(' ');
+                        string fileName = Path.GetFileName(cmdElements.Last().Replace("\"", string.Empty));
+                        executorGameList.Add(fileName);
+                    }
+
+                    List<string> extraSystemRaGames = systemRaGameList.Where(c => !executorGameList.Contains(c)).Select(c => c = $"\"{c}\"").ToList();
+                    if (extraSystemRaGames.Count() > 0)
+                    {
+                        ssh.RunCommand($"cd {targetRaPath}/project_lunar/roms;rm {string.Join(" ", extraSystemRaGames.ToArray())}");
+                    }
+                }
+
+                string systemSettingsSize = ssh.RunCommand("cd /usr/game/save;ls -l data_008_0000.bin | awk '{ print $5; }'").Result.Replace("\n", "");
+                if (systemSettingsSize.Equals("1291180"))
+                {
+                    UpdateStatus("Migrating settings");
+                    m2engage.MigrateSaves(150, Alldata.SRAM_Save_Count);
+                }
+
                 using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
                 {
                     scp.Connect();
 
-                    if (!fullUSBSync)
+                    UpdateStatus("Uploading files");
+                    foreach (string file in lstCreated)
                     {
-                        UpdateStatus("Uploading files");
-                        foreach (string file in lstCreated)
-                        {
-                            string destPath = file.Replace(basePath, string.Empty).Replace("\\", "/");
-                            //ssh.RunCommand($"rm /usr/game{destPath}"); remove to attempt preventing whiteout weird thing
-                            scp.Upload(new FileInfo(file), $"/usr/game{destPath}");
-                        }
+                        string destPath = file.Replace(basePath, string.Empty).Replace("\\", "/");
+                        //ssh.RunCommand($"rm /usr/game{destPath}"); remove to attempt preventing whiteout weird thing
+                        UpdateStatus($"Uploading files ({Path.GetFileName(destPath)})");
+                        scp.Upload(new FileInfo(file), $"/usr/game{destPath}");
+                    }
 
-                        //Delete removed roms
-                        gamesOnSystem.Clear();
+                    //Delete removed roms
+                    gamesOnSystem.Clear();
 
-                        systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split('\n').Where(c => !c.Trim().Equals("")).ToList();
-                        localGameList = Directory.GetFiles($@"{basePath}\system\roms").Select(c => Path.GetFileName(c)).ToList();
+                    systemGameList = ssh.RunCommand("ls /usr/game/system/roms").Result.Split('\n').Where(c => !c.Trim().Equals("")).ToList();
+                    localGameList = Directory.GetFiles($@"{basePath}\system\roms").Select(c => Path.GetFileName(c)).ToList();
 
-                        extraGames = localGameList.Where(c => !systemGameList.Contains(c)).ToList();
+                    extraGames = localGameList.Where(c => !systemGameList.Contains(c)).ToList();
 
-                        foreach (string extraGame in extraGames)
-                        {
-                            scp.Upload(new FileInfo($@"{basePath}\system\roms\{extraGame}"), $"/usr/game/system/roms/{extraGame}");
-                        }
+                    foreach (string extraGame in extraGames)
+                    {
+                        UpdateStatus($"Uploading files ({extraGame})");
+                        scp.Upload(new FileInfo($@"{basePath}\system\roms\{extraGame}"), $"/usr/game/system/roms/{extraGame}");
+                    }
 
+                    if (Directory.Exists($@"{lunarPath}\executors"))
+                    {
+                        raOk = SyncRaGames(ssh, scp, targetRaPath, extraRaGames);
                     }
                     else
                     {
-                        UpdateStatus("Performing full sync");
-                        scp.Upload(new DirectoryInfo($@"{basePath}\system"), "/usr/game/system");
-                        scp.Upload(new DirectoryInfo($@"{basePath}\{dev_id}"), $"/usr/game/{dev_id}");
+                        //If there's nothing local, just delete everything. 
+                        ssh.RunCommand($"rm {targetRaPath}/project_lunar/executors/{sysRegion.ToUpper()}_EN_*");
+                        ssh.RunCommand($"rm {targetRaPath}/project_lunar/roms/*");
                     }
+
                 }
             }
-            if (m2EngageRunning)
+
+            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
             {
-                UpdateStatus("Restarting M2Engage");
-                using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+                ssh.Connect();
+
+                ssh.RunCommand("killall sdl_display &> \"/dev/null\"");
+                if (m2EngageRunning)
                 {
-                    ssh.Connect();
+                    UpdateStatus("Restarting M2Engage");
                     var shell = ssh.CreateShellStream("Lunar", 120, 9999, 120, 9999, 65536);
                     shell.DataReceived += Shell_DataReceived;
                     shell.WriteLine($"start_m2engage");
 
                     Thread.Sleep(2000);
+                }
+                else
+                {
+                    string result = ssh.RunCommand("start_bootmenu &").Result;
                 }
             }
 
@@ -1713,6 +1912,226 @@ namespace ProjectLunarUI
 
             UpdateFormCursor(Cursors.Default);
 
+            if (!raOk)
+            {
+                SwingMessageBox.Show("There were some errors while uploading ROMs for RetroArch cores. Please see log for details.",
+                                     "Upload issues", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        private bool SyncRaGames(SshClient ssh, ScpClient scp, string targetPath, List<string> extraRaGames)
+        {
+            bool result = true;
+            //Handle executor roms
+            if (Directory.GetFiles($@"{lunarPath}\executors").Length > 0)
+            {
+                UpdateStatus("Uploading more files");
+                //patch executors to target
+                foreach (string file in Directory.GetFiles($@"{lunarPath}\executors"))
+                {
+                    string cmd = File.ReadAllText(file).Replace("\n", string.Empty);
+                    string[] cmdElements = cmd.Split(' ');
+                    string fileName = Path.GetFileName(cmdElements.Last().Replace("\"", string.Empty));
+                    cmdElements[cmdElements.Length - 1] = $"\"{targetPath}/project_lunar/roms/{fileName}\"\n";
+                    string newCmd = string.Join(" ", cmdElements);
+                    File.WriteAllText(file, newCmd);
+                }
+
+                StringBuilder uploadErrors = new StringBuilder();
+                foreach (string extraGame in extraRaGames)
+                {
+                    try
+                    {
+                        string sourcePath = $@"{lunarPath}\executors\roms\{extraGame}";
+                        UpdateStatus($"Uploading more files ({extraGame})");
+                        scp.Upload(new FileInfo(sourcePath), $"{targetPath}/project_lunar/roms/{extraGame}");
+                        File.Delete(sourcePath);
+                    }
+                    catch (Exception ex) 
+                    {
+                        uploadErrors.AppendLine($"UPLOAD ERROR:\r\n{ex.ToString()}\r\n");
+                    }
+                }
+
+                if (uploadErrors.Length > 0)
+                {
+                    Program.LogException(uploadErrors.ToString());
+                    result = false;
+                }
+
+                //Reupload all executors, because... why not? Maybe the user edited something.😛
+                ssh.RunCommand($"rm {targetPath}/project_lunar/executors/{sysRegion.ToUpper()}_EN_*");
+                foreach (string executor in Directory.GetFiles($@"{lunarPath}\executors"))
+                {
+                    UpdateStatus($"Uploading more files ({Path.GetFileName(executor)})");
+                    scp.Upload(new FileInfo(executor), $"{targetPath}/project_lunar/executors/{Path.GetFileName(executor)}");
+                }
+            }
+            else
+            {
+                //If there's nothing local, just delete everything. 
+                ssh.RunCommand($"rm {targetPath}/project_lunar/executors/{sysRegion.ToUpper()}_EN_*");
+                ssh.RunCommand($"rm {targetPath}/project_lunar/roms/*");
+            }
+
+            return result;
+        }
+
+        private void SramReorg(SshClient ssh, bool saveLocal = false)
+        {
+            using (SftpClient sftp = new SftpClient("169.254.215.100", "root", "5A7213"))
+            {
+                sftp.Connect();
+                if (!sftp.Exists("/usr/game/save/data_008_0000.bin"))
+                {
+                    return;
+                }
+            }
+
+            string systemSettingsSize = ssh.RunCommand("cd /usr/game/save;ls -l data_008_0000.bin | awk '{ print $5; }'").Result.Replace("\n", "");
+            if (systemSettingsSize.Equals("1291180"))
+            {
+                return;
+            }
+
+            using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+            {
+                scp.Connect();
+                MemoryStream settingsDataStream = new MemoryStream();
+                scp.Download("/usr/game/save/data_008_0000.bin", settingsDataStream);
+
+                MemoryStream settingsMetaStream = new MemoryStream();
+                scp.Download("/usr/game/save/meta_008_0000.bin", settingsMetaStream);
+
+                byte[] settingsData = new byte[settingsDataStream.Length];
+                settingsDataStream.Position = 0;
+                settingsDataStream.Read(settingsData, 0, settingsData.Length);
+                SystemData originalSave = SystemData.FromByteArray(settingsData, Alldata.SRAM_Save_Count);
+                List<JToken> gvs = new List<JToken>();
+                foreach (var gv in romsObject["root"]["game_versions"].Children().Children())
+                {
+                    if (!gv[0].Equals(gv[3]))
+                    {
+                        originalSave.Sram_Data[(int)gv[0]] = originalSave.Sram_Data[(int)gv[3]];
+                        originalSave.Sram_Data[(int)gv[3]] = new SramData();
+                    }
+                    gv[3] = gv[0];
+                }
+                File.WriteAllText(romsJsonPath, romsObject.ToString());
+
+                byte[] migratedData = originalSave.ToByteArray();
+
+                using (MemoryStream saveFile = new MemoryStream(migratedData))
+                {
+                    scp.Upload(saveFile, "/usr/game/save/data_008_0000.bin");
+                    if (saveLocal)
+                    {
+                        File.WriteAllBytes($@"{lunarPath}\data_008_0000.bin", migratedData);
+                    }
+                }
+
+                settingsMetaStream.Position = 0;
+                using (PsbReader psbReader = new PsbReader(settingsMetaStream))
+                {
+                    JToken meta = psbReader.Root;
+                    meta["FileSize"] = migratedData.Length;
+                    meta["OriginalSize"] = migratedData.Length;
+                    (meta["Digest"] as JStream).BinaryData = MD5.Create().ComputeHash(migratedData);
+
+                    PsbWriter psbWriter = new PsbWriter(meta, null);
+                    psbWriter.Version = psbReader.Version;
+
+                    using (MemoryStream metaFile = new MemoryStream())
+                    {
+                        psbWriter.Write(metaFile, null);
+                        metaFile.Position = 0;
+                        scp.Upload(metaFile, "/usr/game/save/meta_008_0000.bin");
+
+                        if (saveLocal)
+                        {
+                            byte[] metaData = new byte[metaFile.Length];
+                            metaFile.Position = 0;
+                            metaFile.Read(metaData, 0, metaData.Length);
+                            File.WriteAllBytes($@"{lunarPath}\meta_008_0000.bin", metaData);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SaveStateReorg(SshClient ssh)
+        {
+            int gameCount = titlesObject["items"].Count() / 8;
+            int lastGamePosition = titlesObject["items"].Max(c => ((int)c["tposition"]));
+            List<int> positionGaps = new List<int>();
+            int position = 0;
+            for (int i = 0; i <= lastGamePosition; i++)
+            {
+                if (((int)titlesObject["items"][position]["tposition"]).Equals(i))
+                {
+                    position++;
+                }
+                else
+                {
+                    UpdateStatus("Tidying up...");
+                    positionGaps.Add(i);
+                    //First, remove any saves associated with the missing game
+                    string cmd = $"cd /usr/game/save/;rm data_012_{(i * 4).ToString("0000")}.bin meta_012_{(i * 4).ToString("0000")}.bin " +
+                                                    $"rm data_012_{((i * 4) + 1).ToString("0000")}.bin meta_012_{((i * 4) + 1).ToString("0000")}.bin " +
+                                                    $"rm data_012_{((i * 4) + 2).ToString("0000")}.bin meta_012_{((i * 4) + 2).ToString("0000")}.bin " +
+                                                    $"rm data_012_{((i * 4) + 3).ToString("0000")}.bin meta_012_{((i * 4) + 3).ToString("0000")}.bin";
+
+                    Debug.Print(cmd);
+                    ssh.RunCommand(cmd);
+                }
+            }
+
+            position = 0;
+            for (int i = 0; i <= lastGamePosition; i++)
+            {
+                if (((int)titlesObject["items"][position]["tposition"]).Equals(position))
+                {
+                    position++;
+                }
+                else
+                {
+                    UpdateStatus("Tidying up...");
+                    while ((int)titlesObject["items"][position]["tposition"] != position)
+                    {
+                        //shift all next entries by 1 until the the position matches current index
+                        for (int entry = position; entry < gameCount; entry++)
+                        {
+                            int val = (int)titlesObject["items"][entry]["tposition"];
+                            titlesObject["items"][entry]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 1)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 2)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 3)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 4)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 5)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 6)]["tposition"] = (val - 1);
+                            titlesObject["items"][entry + (gameCount * 7)]["tposition"] = (val - 1);
+
+
+                            for (int slot = 0; slot < 4; slot++)
+                            {
+                                string cmd = $"cd /usr/game/save/;mv data_012_{((val * 4) + slot).ToString("0000")}.bin data_012_{(((val - 1) * 4) + slot).ToString("0000")}.bin";
+                                Debug.Print(cmd);
+                                ssh.RunCommand(cmd);
+
+                                cmd = $"cd /usr/game/save/;mv meta_012_{((val * 4) + slot).ToString("0000")}.bin meta_012_{(((val - 1) * 4) + slot).ToString("0000")}.bin";
+                                Debug.Print(cmd);
+                                ssh.RunCommand(cmd);
+                            }
+                        }
+
+                        i++;
+                    }
+
+                    position++;
+                }
+            }
+            File.WriteAllText(titlesJsonPath, titlesObject.ToString());
         }
 
         private void ReloadData()
@@ -1967,6 +2386,7 @@ namespace ProjectLunarUI
                 try
                 {
                     Directory.Delete(basePath, true);
+                    Directory.Delete($@"{lunarPath}\executors", true);
                 }
                 catch
                 {
@@ -2028,7 +2448,24 @@ namespace ProjectLunarUI
             string romCode = Alldata.DeleteGameFromTitlesObject(gameNumber, gamesCount, texturesObject, titlesObject, titlesJsonPath, packer, touchedFiles);
 
             //Delete from Rom profile
-            Alldata.DeleteGameFromRomsObject(romCode, romsObject, basePath, romsJsonPath, packer, touchedFiles);
+            string romName = Alldata.DeleteGameFromRomsObject(romCode, romsObject, basePath, romsJsonPath, packer, touchedFiles);
+
+            if (romName.Contains("en_executor.bin"))
+            {
+                string executorPath = $@"{lunarPath}\executors\{romCode}";
+                if (File.Exists(executorPath))
+                {
+                    string executorText = File.ReadAllText(executorPath).Replace("\n", string.Empty);
+                    string[] cmdElements = executorText.Split(' ');
+                    string realRomName = Path.GetFileName(cmdElements.Last().Replace("\"", string.Empty));
+                    string realRomPath = $@"{lunarPath}\executors\roms\{realRomName}";
+                    if (File.Exists(realRomPath))
+                    {
+                        File.Delete(realRomPath);
+                    }
+                    File.Delete(executorPath);
+                }
+            }
 
             //Update Script
             Alldata.ModeTitleSelectNutAddUpdate(basePath, packer, touchedFiles, false);
@@ -2128,6 +2565,7 @@ namespace ProjectLunarUI
             }
             catch (Exception ex)
             {
+                Program.LogException(ex);
                 SwingMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 UpdateFormCursor(Cursors.Default);
                 return;
@@ -2216,6 +2654,7 @@ namespace ProjectLunarUI
             }
             catch (Exception ex)
             {
+                Program.LogException(ex);
                 SwingMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             UpdateFormCursor(Cursors.Default);
@@ -2317,6 +2756,7 @@ namespace ProjectLunarUI
             }
             catch (Exception ex)
             {
+                Program.LogException(ex);
                 SwingMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 CloseLoadingBox();
                 UpdateFormCursor(Cursors.Default);
@@ -2694,6 +3134,279 @@ namespace ProjectLunarUI
                             "Smoothing Default", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void onToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (utilsScript.Contains("xs = 1.1428571428571;"))
+            {
+                SwingMessageBox.Show("Cannot toggle with 'Force 8:7 mode for 256x224' enabled.",
+                            "Toggle pixel perfect mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (utilsScript.Contains("//ys = ( 0.9 / ratio ) * 1.121"))
+            {
+                return;
+            }
+            else if (utilsScript.Contains("ys = ( 0.9 / ratio ) * 1.121"))
+            {
+
+                utilsScript = utilsScript.Replace("ys = ( 0.9 / ratio ) * 1.121",
+                                                  "//ys = ( 0.9 / ratio ) * 1.121");
+                utilsScript = utilsScript.Replace("xs = ratio / 0.9;",
+                                                  "//xs = ratio / 0.9;");
+                utilsScript = utilsScript.Replace("ys = 0.9 / ratio;",
+                                                  "//ys = 0.9 / ratio;");
+            }
+            else
+            {
+                return;
+            }
+
+            pixelPOnToolStripMenuItem.Checked = true;
+            PixelPOffToolStripMenuItem.Checked = false;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Pixel perfect mode has been enabled for all modes. Please sync to commit the changes to the console",
+                            "Toggle pixel perfect mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void PixelPOffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (utilsScript.Contains("xs = 1.1428571428571;"))
+            {
+                SwingMessageBox.Show("Cannot toggle with 'Force 8:7 mode for 256x224' enabled.",
+                            "Toggle pixel perfect mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (utilsScript.Contains("//ys = ( 0.9 / ratio ) * 1.121"))
+            {
+
+                utilsScript = utilsScript.Replace("//ys = ( 0.9 / ratio ) * 1.121",
+                                                  "ys = ( 0.9 / ratio ) * 1.121");
+                utilsScript = utilsScript.Replace("//xs = ratio / 0.9;",
+                                                  "xs = ratio / 0.9;");
+                utilsScript = utilsScript.Replace("//ys = 0.9 / ratio;",
+                                                  "ys = 0.9 / ratio;");
+            }
+            else
+            {
+                return;
+            }
+
+            pixelPOnToolStripMenuItem.Checked = false;
+            PixelPOffToolStripMenuItem.Checked = true;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Pixel perfect mode has been disabled for all modes. Please sync to commit the changes to the console",
+                            "Toggle pixel perfect mode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void on87ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (utilsScript.Contains("//xs = ratio / 0.9;"))
+            {
+                SwingMessageBox.Show("Cannot toggle with 'Disable fixed 4:3 ratio' enabled.",
+                            "Enable 8:7 mode for 256x224 games", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (utilsScript.Contains("xs = ratio / 0.9;"))
+            {
+                utilsScript = utilsScript.Replace("xs = ratio / 0.9;",
+                                                  "xs = 1.1428571428571;");
+            }
+            else
+            {
+                return;
+            }
+
+            on87ToolStripMenuItem.Checked = true;
+            off87ToolStripMenuItem.Checked = false;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("8:7 resolution mode has been enabled for 256x224 games. Please sync to commit the changes to the console",
+                            "Enable 8:7 mode for 256x224 games", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void off87ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (utilsScript.Contains("//xs = ratio / 0.9;"))
+            {
+                SwingMessageBox.Show("Cannot toggle with 'Disable fixed 4:3 ratio' enabled.",
+                            "Disable 8:7 mode for 256x224 games", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (utilsScript.Contains("xs = 1.1428571428571;"))
+            {
+                utilsScript = utilsScript.Replace("xs = 1.1428571428571;",
+                                                  "xs = ratio / 0.9;");
+            }
+            else
+            {
+                return;
+            }
+
+            on87ToolStripMenuItem.Checked = false;
+            off87ToolStripMenuItem.Checked = true;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("8:7 resolution mode has been disabled for 256x224 games. Please sync to commit the changes to the console",
+                            "Disable 8:7 mode for 256x224 games", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void bgRestoreDefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (bgRestoreDefaultToolStripMenuItem.Checked == false)
+            {
+                utilsScript = utilsScript.Replace("return PKGREGION_JP;",
+                                                  "return rc;");
+                utilsScript = utilsScript.Replace("return PKGREGION_EU;",
+                                                  "return rc;");
+                utilsScript = utilsScript.Replace("return PKGREGION_US;",
+                                                  "return rc;");
+            }
+            else
+            {
+                return;
+            }
+
+            bgForceJPNToolStripMenuItem.Checked = false;
+            bgForceUSToolStripMenuItem.Checked = false;
+            forceENToolStripMenuItem.Checked = false;
+            bgRestoreDefaultToolStripMenuItem.Checked = true;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Background selection restored to default. Please sync to commit the changes to the console",
+                                 "Toggle background selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void bgForceJPNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (!utilsScript.Contains("return PKGREGION_JP;"))
+            {
+                if (utilsScript.Contains("return PKGREGION_US;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_US;",
+                                                      "return PKGREGION_JP;");
+                } 
+                else if (utilsScript.Contains("return PKGREGION_EU;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_EU;",
+                                                      "return PKGREGION_JP;");
+                }
+                else
+                {
+                    utilsScript = ReplaceFirstOccurrence(utilsScript, "return rc;", "return PKGREGION_JP;");
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            bgForceJPNToolStripMenuItem.Checked = true;
+            bgForceUSToolStripMenuItem.Checked = false;
+            forceENToolStripMenuItem.Checked = false;
+            bgRestoreDefaultToolStripMenuItem.Checked = false;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Background selection forced to JPN. Please sync to commit the changes to the console",
+                                 "Toggle background selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void bgForceUSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (!utilsScript.Contains("return PKGREGION_US;"))
+            {
+                if (utilsScript.Contains("return PKGREGION_EU;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_EU;",
+                                                      "return PKGREGION_US;");
+                }
+                else if (utilsScript.Contains("return PKGREGION_JP;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_JP;",
+                                                      "return PKGREGION_US;");
+                }
+                else
+                {
+                    utilsScript = ReplaceFirstOccurrence(utilsScript, "return rc;", "return PKGREGION_US;");
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            bgForceJPNToolStripMenuItem.Checked = false;
+            bgForceUSToolStripMenuItem.Checked = true;
+            forceENToolStripMenuItem.Checked = false;
+            bgRestoreDefaultToolStripMenuItem.Checked = false;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Background selection forced to US. Please sync to commit the changes to the console",
+                                 "Toggle background selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void forceENToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string utilsScriptPath = PrepareAccess($@"{basePath}\system\script\utils.nut.m");
+            string utilsScript = File.ReadAllText(utilsScriptPath);
+            if (!utilsScript.Contains("return PKGREGION_EU;"))
+            {
+                if (utilsScript.Contains("return PKGREGION_US;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_US;",
+                                                      "return PKGREGION_EU;");
+                }
+                else if (utilsScript.Contains("return PKGREGION_JP;"))
+                {
+                    utilsScript = utilsScript.Replace("return PKGREGION_JP;",
+                                                      "return PKGREGION_EU;");
+                }
+                else
+                {
+                    utilsScript = ReplaceFirstOccurrence(utilsScript, "return rc;", "return PKGREGION_EU;");
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            bgForceJPNToolStripMenuItem.Checked = false;
+            bgForceUSToolStripMenuItem.Checked = false;
+            forceENToolStripMenuItem.Checked = true;
+            bgRestoreDefaultToolStripMenuItem.Checked = false;
+
+            File.WriteAllText(utilsScriptPath, utilsScript);
+            SwingMessageBox.Show("Background selection forced to EU. Please sync to commit the changes to the console",
+                                 "Toggle background selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static string ReplaceFirstOccurrence(string Source, string Find, string Replace)
+        {
+            int place = Source.IndexOf(Find);
+
+            if (place < 0)
+                return Source;
+
+            string result = Source.Remove(place, Find.Length).Insert(place, Replace);
+            return result;
+        }
+
         private void txtTname_Enter(object sender, EventArgs e)
         {
             tnameState = txtTname.Text;
@@ -2992,6 +3705,152 @@ namespace ProjectLunarUI
             ProcessStartInfo process = new ProcessStartInfo("explorer.exe", $@"{lunarPath}\IPS\");
             process.UseShellExecute = true;
             Process.Start(process);
+        }
+
+        private void fixMisplacedSavestatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowLoadingBox("REPAIRING MISPLACED SAVES");
+            Task.Run(RepairMisplacedSaves);
+        }
+
+        private void RepairMisplacedSaves()
+        {
+            UpdateFormCursor(Cursors.WaitCursor);
+            using (SshClient ssh = new SshClient("169.254.215.100", "root", "5A7213"))
+            {
+                ssh.Connect();
+
+                string[] saveFiles = ssh.RunCommand("ls /usr/game/save/data*.bin").Result.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                List<string> overlapingSaves = new List<string>();
+                List<string> repairedSaves = new List<string>();
+                int lostSaveCount = 0;
+
+                using (ScpClient scp = new ScpClient("169.254.215.100", "root", "5A7213"))
+                {
+                    scp.Connect();
+
+                    foreach (string file in saveFiles)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(file);
+                        if (fileName.StartsWith("data_008") || fileName.EndsWith("99999"))
+                        {
+                            //Skip settings file and exploit file
+                            continue;
+                        }
+
+                        MemoryStream fileData = new MemoryStream();
+                        scp.Download(file, fileData);
+                        BinaryReader fileReader = new BinaryReader(fileData);
+
+                        fileReader.BaseStream.Seek(0x50, SeekOrigin.Begin);
+                        string name = Encoding.UTF8.GetString(fileReader.ReadBytes(16)).Replace("\0", "");
+                        int saveNumber = Convert.ToInt32(fileName.Split('_')[2]);
+                        int fileSlot = saveNumber / 4;
+
+                        JToken gameEntry = titlesObject["items"].Where(c => c["regionTag"].ToString().Equals(name)).FirstOrDefault();
+
+                        if (gameEntry == null)
+                        {
+                            //Game no longer exists.
+                            lostSaveCount++;
+                            ssh.RunCommand($"rm {file}");
+                            ssh.RunCommand($"rm {file.Replace("data", "meta")}");
+                            continue;
+                        }
+
+                        int correctSlot = (int)gameEntry["tposition"];
+
+                        if (fileSlot.Equals(correctSlot))
+                        {
+                            continue;
+                        }
+
+                        //We got here, it means we need to rename the file.
+                        int destSaveNumber = (correctSlot * 4) + saveNumber % 4;
+                        string destFile = $"/usr/game/save/data_012_{destSaveNumber.ToString("0000")}.bin";
+
+                        using (SftpClient sftp = new SftpClient("169.254.215.100", "root", "5A7213"))
+                        {
+                            sftp.Connect();
+                            if (sftp.Exists(destFile))
+                            {
+                                overlapingSaves.Add(destFile);
+                                ssh.RunCommand($"mv {destFile} {destFile.Replace("012", "999")}");
+                                ssh.RunCommand($"mv {destFile.Replace("data", "meta")} {destFile.Replace("data", "meta").Replace("012", "999")}");
+                            }
+                        }
+
+                        repairedSaves.Add($"{gameEntry["tname"].ToString()} (Slot {saveNumber % 4})");
+                        string result = ssh.RunCommand($"mv {file} {destFile}").Error;
+                        result = ssh.RunCommand($"mv {file.Replace("data", "meta")} {destFile}".Replace("data", "meta")).Error;
+                    }
+                }
+
+                bool stillSomeFilesNeeded = false;
+                if (overlapingSaves.Count > 0)
+                {
+                    SwingMessageBox.Show($"The following files overlapped with moved files. Pleae run this function again " +
+                                            $"to resolve the issue:\n{string.Join("\n", overlapingSaves.ToArray())}",
+                                            "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+                if (repairedSaves.Count > 0)
+                {
+                    if (SwingMessageBox.Show($"Saves for the following games were repaired:\n" +
+                                             $"{string.Join("\n", repairedSaves.ToArray())}\n" +
+                                             $"{ ((lostSaveCount > 0) ? $"Lost saves removed: {lostSaveCount.ToString()}" : "")}\n" +
+                                             $"A sync may be required to commit the changes. Would you like to sync now?",
+                                             "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                    {
+                        SyncGames();
+                    }
+                }
+                else if (!stillSomeFilesNeeded)
+                {
+                    SwingMessageBox.Show($"No saves needed repair. " +
+                                         $"{ ((lostSaveCount > 0) ? $"Lost saves removed: {lostSaveCount.ToString()}." : "")}", "Notice",
+                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+            }
+            UpdateFormCursor(Cursors.Default);
+            CloseLoadingBox();
+        }
+
+        static byte[] DecodeSMD(string filePath)
+        {
+            int blockSize = 16384;
+            int subBlockSize = 8192;
+            byte[] smdData = null;
+            using (BinaryReader smdFile = new BinaryReader(File.OpenRead(filePath)))
+            {
+                smdFile.BaseStream.Seek(0x200, SeekOrigin.Begin);
+                smdData = smdFile.ReadBytes((int)smdFile.BaseStream.Length - 512);
+            }
+
+            int blockCount = smdData.Length / blockSize;
+            byte[] binData = new byte[smdData.Length];
+
+            for (int blockNum = 0; blockNum < blockCount; blockNum++)
+            {
+                byte[] block = new byte[blockSize];
+                byte[] evenBytes = new byte[subBlockSize];
+                byte[] oddBytes = new byte[subBlockSize];
+
+                Array.Copy(smdData, blockNum * blockSize, oddBytes, 0, subBlockSize);
+                Array.Copy(smdData, (blockNum * blockSize) + subBlockSize, evenBytes, 0, subBlockSize);
+
+                for (int i = 0; i < blockSize; i += 2)
+                {
+                    block[i] = evenBytes[i / 2];
+                    block[i + 1] = oddBytes[i / 2];
+                }
+
+                Array.Copy(block, 0, binData, blockNum * blockSize, blockSize);
+            }
+
+            return binData;
         }
     }
 }
