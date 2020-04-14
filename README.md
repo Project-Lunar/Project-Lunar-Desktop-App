@@ -26,7 +26,7 @@ Please refer to the full release page here: https://modmyclassic.com/project-lun
 
 Issue tracker here: https://github.com/Project-Lunar/Project-Lunar-Issue-Tracker/issues
 
-Discord Support Channel here: https://discord.me/modmyclassic
+Discord Support Channel here: https://modmyclassic.com/discord
 
 ---
 
