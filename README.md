@@ -1,6 +1,6 @@
 <div align="center">
   
-![MMC banner](https://modmyclassic.com/wp-content/uploads/2019/09/PL_fullColour_Large2-1024x380.png)
+![MMC banner](http://modmyclassic.com/wp-content/uploads/2025/08/PL_fullColour_Large2-1024x380.png.png)
 
 </div>
 
