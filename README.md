@@ -22,7 +22,7 @@
   - `M2engage/Scraper/Resources/ss.bin`
 - Compile the desktop app
 
-Please refer to the full release page here: https://modmyclassic.com/project-lunar/
+Please refer to the full release page here: [https://modmyclassic.com/project-lunar/](https://web.archive.org/web/20250718201255/https://modmyclassic.com/project-lunar/)
 
 Issue tracker here: https://github.com/Project-Lunar/Project-Lunar-Issue-Tracker/issues
 
